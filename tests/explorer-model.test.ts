@@ -56,9 +56,9 @@ describe("isRelevant", () => {
     expect(isRelevant(middle, "mobile")).toBe(false);
   });
 
-  it("uses the end-to-end rule when every area is selected", () => {
+  it("lights up every project when all areas are selected, however many it used", () => {
     expect(isRelevant(wideFirst, "all")).toBe(true);
-    expect(isRelevant(middle, "all")).toBe(false);
+    expect(isRelevant(middle, "all")).toBe(true);
   });
 });
 

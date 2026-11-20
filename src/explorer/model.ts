@@ -24,7 +24,7 @@ export function endToEndProjects<P extends HasAreas>(projects: readonly P[]): P[
 }
 
 export function isRelevant(project: HasAreas, selection: Selection): boolean {
-  if (selection === ALL_AREAS) return project.areas.length >= END_TO_END_MIN_AREAS;
+  if (selection === ALL_AREAS) return true;
   return project.areas.includes(selection);
 }
 
