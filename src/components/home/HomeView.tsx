@@ -28,8 +28,10 @@ export function HomeView({ locale, dictionary }: Props) {
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
       <SiteHeader name={PERSON_NAME} locale={locale} copy={dictionary.site} />
       <Hero copy={dictionary.home} />
-      <StackExplorer areas={areas} projects={projects} needs={needs} copy={dictionary.explorer} />
       <TwinChat locale={locale} copy={dictionary.twin} book={dictionary.site.book} starters={localizeStarters(locale)} />
+      <div className="mt-20 border-t border-rule pt-12">
+        <StackExplorer areas={areas} projects={projects} needs={needs} copy={dictionary.explorer} />
+      </div>
       <Contact copy={dictionary.contact} book={dictionary.site.book} />
     </main>
   );

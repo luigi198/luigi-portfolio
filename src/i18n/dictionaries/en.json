@@ -15,7 +15,8 @@
   "home": {
     "headline": "Most real problems cut through more than one layer.",
     "intro": "In 13 years of building software, I've worked in all five, from the app in someone's hand down to the database under it. Pick an area, a project, or the problem you have.",
-    "photoAlt": "Luis Cordoba"
+    "photoAlt": "Luis Cordoba",
+    "ask": "Ask the AI version of me"
   },
   "explorer": {
     "need": "I need",

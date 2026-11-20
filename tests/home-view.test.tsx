@@ -35,6 +35,28 @@ describe("HomeView", () => {
     for (const p of PROJECTS) expect(text).toContain(p.title.en);
   });
 
+  it("puts the AI twin chat right after the hero, before the explorer", () => {
+    for (const [html, copy] of [[enHtml, en], [esHtml, es]] as const) {
+      const hero = html.indexOf(copy.home.headline);
+      const chat = html.indexOf('id="twin"');
+      const explorer = html.indexOf(copy.explorer.mapLabel);
+      expect(hero).toBeGreaterThan(-1);
+      expect(chat).toBeGreaterThan(hero);
+      expect(explorer).toBeGreaterThan(chat);
+    }
+  });
+
+  it("links from the hero to the chat in both languages", () => {
+    for (const [html, copy] of [[enHtml, en], [esHtml, es]] as const) {
+      const heroEnd = html.indexOf('id="twin"');
+      expect(html.slice(0, heroEnd)).toMatch(new RegExp(`<a[^>]*href="#twin"[^>]*>${copy.home.ask}</a>`));
+    }
+  });
+
+  it("gives the chat input a stable id the hero link can focus", () => {
+    expect(enHtml).toMatch(/<textarea[^>]*id="twin-input"/);
+  });
+
   it("shows the Spanish copy on the Spanish page", () => {
     const text = textOf(esHtml);
     for (const a of AREAS) expect(text).toContain(a.name.es);

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AskTwinLink } from "@/components/twin/AskTwinLink";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 /** Served from /public; 400×400 source, shown at up to 7rem. */
@@ -22,6 +23,9 @@ export function Hero({ copy }: { copy: Dictionary["home"] }) {
           {copy.headline}
         </h1>
         <p className="max-w-[38rem] text-[1.1875rem] text-muted">{copy.intro}</p>
+        <div className="mt-7">
+          <AskTwinLink label={copy.ask} />
+        </div>
       </div>
     </section>
   );

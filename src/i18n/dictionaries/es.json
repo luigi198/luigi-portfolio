@@ -15,7 +15,8 @@
   "home": {
     "headline": "Casi todo problema real atraviesa más de una capa.",
     "intro": "En 13 años construyendo software he trabajado en las cinco, desde la app en la mano de alguien hasta la base de datos que la sostiene. Elija un área, un proyecto o el problema que tiene.",
-    "photoAlt": "Luis Cordoba"
+    "photoAlt": "Luis Cordoba",
+    "ask": "Pregúntele a mi versión con IA"
   },
   "explorer": {
     "need": "Necesito",

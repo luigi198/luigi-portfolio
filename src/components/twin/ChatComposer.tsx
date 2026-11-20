@@ -3,6 +3,7 @@
 import { useId, useState, type FormEvent, type KeyboardEvent } from "react";
 import { MAX_MESSAGE_CHARS } from "@/twin/policy";
 import type { TwinCopy } from "./copy";
+import { TWIN_INPUT_ID } from "./ids";
 
 interface Props {
   copy: TwinCopy;
@@ -13,7 +14,6 @@ interface Props {
 /** Message box with a live character count, capped at the server's limit (research A3). */
 export function ChatComposer({ copy, busy, onSend }: Props) {
   const [text, setText] = useState("");
-  const inputId = useId();
   const countId = useId();
   const canSend = !busy && text.trim().length > 0;
 
@@ -31,11 +31,11 @@ export function ChatComposer({ copy, busy, onSend }: Props) {
 
   return (
     <form onSubmit={submit} className="grid gap-2">
-      <label htmlFor={inputId} className="sr-only">
+      <label htmlFor={TWIN_INPUT_ID} className="sr-only">
         {copy.placeholder}
       </label>
       <textarea
-        id={inputId}
+        id={TWIN_INPUT_ID}
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={onKeyDown}
