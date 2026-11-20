@@ -35,6 +35,10 @@ describe("explorer content", () => {
     expect(new Set(targets)).toEqual(new Set([...areaIds, ALL_AREAS]));
   });
 
+  it("only links to https sites", () => {
+    for (const p of PROJECTS) for (const link of p.links ?? []) expect(new URL(link).protocol, p.id).toBe("https:");
+  });
+
   it("never mentions a year in any project or area text", () => {
     const text = JSON.stringify([PROJECTS, AREAS]);
     expect(text).not.toMatch(YEAR);
@@ -72,6 +76,7 @@ describe("localize", () => {
       client: project.client.en,
       metric: project.metric.en,
       story: project.story.en,
+      links: project.links ?? [],
     });
   });
 

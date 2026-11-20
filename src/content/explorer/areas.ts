@@ -1,6 +1,6 @@
 import type { AreaContent } from "@/explorer/types";
 
-// SAMPLE CONTENT: replace with real tools, offers and answers.
+// Real tools, offers and answers, from private/career-profile.md (git-ignored).
 // Listed in layer order, top (closest to the user) to bottom (storage).
 export const AREAS: readonly AreaContent[] = [
   {
@@ -8,22 +8,22 @@ export const AREAS: readonly AreaContent[] = [
     name: { en: "Mobile", es: "Móvil" },
     topic: { en: "mobile", es: "móvil" },
     pitch: {
-      en: "Apps that feel native and keep working when the signal drops.",
-      es: "Apps que se sienten nativas y siguen funcionando cuando se cae la señal.",
+      en: "Apps that keep working offline and stay in sync with your backend.",
+      es: "Apps que siguen funcionando sin conexión y se mantienen sincronizadas con tu backend.",
     },
-    know: ["React Native", "Expo", "Swift", "Kotlin", "Offline sync", "Push notifications", "App Store & Play releases"],
+    know: ["Flutter", "Dart", "Native iOS", "ObjectBox", "Offline sync", "Data reconciliation"],
     can: {
-      en: ["Take an app from idea to both stores", "Fix an app that crashes or drains the battery", "Make a field app work with no connection"],
-      es: ["Llevar una app de la idea a ambas tiendas", "Arreglar una app que se cierra o gasta la batería", "Hacer que una app de campo funcione sin conexión"],
+      en: ["Rebuild a native app in Flutter for iOS and Android", "Make an app work offline and sync safely", "Build a learning or booking app"],
+      es: ["Rehacer una app nativa en Flutter para iOS y Android", "Hacer que una app funcione sin conexión y sincronice bien", "Construir una app de aprendizaje o de citas"],
     },
     twin: {
       en: {
         question: "Have you built apps that work offline?",
-        answer: "Yes, that's most of my mobile work. On the field-service app, technicians were in basements with no signal, so everything was written to a local store first and synced when they got back online. If your users lose connection, I'd design for that on day one.",
+        answer: "Yes. At Eleven Systems I moved two native iOS apps to Flutter, a messaging app and a trip app for guests staying in properties. Data lived on the device with ObjectBox, and I wrote reconciliation logic to sync it with the backend, so every device ended up with the same data.",
       },
       es: {
         question: "¿Has hecho apps que funcionen sin conexión?",
-        answer: "Sí, es la mayor parte de mi trabajo en móvil. En la app de servicio técnico los técnicos trabajaban en sótanos sin señal, así que todo se guardaba primero en el teléfono y se sincronizaba al volver la conexión. Si tus usuarios pierden señal, lo diseñaría así desde el primer día.",
+        answer: "Sí. En Eleven Systems pasé dos apps nativas de iOS a Flutter, una de mensajería y otra de viajes para huéspedes en propiedades. Los datos vivían en el dispositivo con ObjectBox, y escribí la lógica de reconciliación para sincronizarlos con el backend, así todos los dispositivos terminaban con los mismos datos.",
       },
     },
   },
@@ -32,22 +32,22 @@ export const AREAS: readonly AreaContent[] = [
     name: { en: "Full stack", es: "Full stack" },
     topic: { en: "full stack", es: "full stack" },
     pitch: {
-      en: "Web products and APIs that still hold up after launch day.",
-      es: "Productos web y APIs que siguen en pie después del lanzamiento.",
+      en: "Products built end to end, from the database to the screen.",
+      es: "Productos construidos de punta a punta, de la base de datos a la pantalla.",
     },
-    know: ["TypeScript", "React", "Next.js", "Node.js", "Python", "REST & GraphQL", "AWS", "Docker"],
+    know: ["TypeScript", "React", "Next.js", "Tailwind", "Node.js", "NestJS", "Flask", "FastAPI", "Angular", "Vue", "AWS", "Terraform", "Stripe"],
     can: {
-      en: ["Build an MVP your team can keep growing", "Untangle a slow or fragile backend", "Join your team on-site and ship with them"],
-      es: ["Construir un MVP que tu equipo pueda seguir creciendo", "Desenredar un backend lento o frágil", "Unirme a tu equipo en sitio y entregar con ellos"],
+      en: ["Build a product end to end, database to UI", "Modernize a legacy app without stopping the business", "Ship a site built for search, with a blog or a shop"],
+      es: ["Construir un producto de punta a punta, de la base de datos a la interfaz", "Modernizar una app vieja sin detener el negocio", "Lanzar un sitio hecho para buscadores, con blog o tienda"],
     },
     twin: {
       en: {
-        question: "What does a typical full stack project look like with you?",
-        answer: "Usually I start on the backend, because that's where the hard decisions are: the data model and the API. Then I build the screens people actually use. On the logistics platform that meant an API holding 180 ms at peak and a booking flow the ops team could use without training.",
+        question: "Can you modernize an old app?",
+        answer: "I've done it a few times. At Jetson Systems I led five developers and two QAs moving about six AngularJS apps to the newest Angular, including the components they shared. At Meenta we moved from Google Cloud Functions to Node.js and from Firebase to MongoDB while the platform kept running.",
       },
       es: {
-        question: "¿Cómo es un proyecto full stack contigo?",
-        answer: "Normalmente empiezo por el backend, porque ahí están las decisiones difíciles: el modelo de datos y la API. Después construyo las pantallas que la gente usa de verdad. En la plataforma de logística eso fue una API que se mantenía en 180 ms en hora pico y un flujo de reservas que el equipo usó sin capacitación.",
+        question: "¿Puedes modernizar una app vieja?",
+        answer: "Lo he hecho varias veces. En Jetson Systems lideré a cinco desarrolladores y dos QA para pasar unas seis apps de AngularJS al Angular más reciente, incluidos los componentes que compartían. En Meenta pasamos de Google Cloud Functions a Node.js y de Firebase a MongoDB sin detener la plataforma.",
       },
     },
   },
@@ -56,22 +56,22 @@ export const AREAS: readonly AreaContent[] = [
     name: { en: "Agentic AI", es: "IA agéntica" },
     topic: { en: "agentic AI", es: "IA agéntica" },
     pitch: {
-      en: "Agents that do real work inside your systems, with clear limits.",
-      es: "Agentes que hacen trabajo real dentro de tus sistemas, con límites claros.",
+      en: "AI that searches and writes from your real data, with checks around it.",
+      es: "IA que busca y redacta con tus datos reales, con controles alrededor.",
     },
-    know: ["Claude & OpenAI APIs", "Tool calling", "MCP", "RAG", "Evals", "LangGraph", "Prompt-injection defenses"],
+    know: ["OpenAI & Anthropic APIs", "Tool orchestration", "RAG", "pgvector", "Embeddings", "Structured JSON output", "Provider fallback", "LLM observability"],
     can: {
-      en: ["Automate a repetitive workflow end to end", "Put an assistant on top of your own data", "Measure whether an agent is actually right"],
-      es: ["Automatizar un flujo repetitivo de punta a punta", "Poner un asistente sobre tus propios datos", "Medir si un agente realmente acierta"],
+      en: ["Add plain-language search over your own data", "Generate reports an AI writes from real numbers", "Make AI features reliable, with fallbacks, logs and cost tracking"],
+      es: ["Agregar búsqueda en lenguaje natural sobre tus datos", "Generar reportes que una IA redacta con números reales", "Hacer confiables las funciones de IA, con respaldos, logs y control de costos"],
     },
     twin: {
       en: {
-        question: "How do you keep an AI agent from making things up?",
-        answer: "Two ways. It only answers from data I give it, and it has to say when it doesn't know. Then I test it against real past cases before anyone relies on it. The support triage agent went live only after it matched our human labels on 500 old tickets.",
+        question: "How does the search on Propiedatos work?",
+        answer: "You type what you want in your own words, say a lot near the beach under a certain price. The LLM splits that into hard filters, as validated JSON, and the meaning behind the request. Filters run in PostgreSQL, the meaning goes through pgvector, and the results are checked before you see them. If one AI provider fails, it falls back to the other.",
       },
       es: {
-        question: "¿Cómo evitas que un agente de IA invente cosas?",
-        answer: "De dos formas. Solo responde con los datos que le doy y tiene que decir cuando no sabe. Después lo pruebo contra casos reales antes de que alguien dependa de él. El agente de soporte salió a producción solo cuando coincidió con nuestras etiquetas humanas en 500 tickets viejos.",
+        question: "¿Cómo funciona la búsqueda de Propiedatos?",
+        answer: "Escribes lo que buscas con tus palabras, por ejemplo un lote cerca de la playa por debajo de cierto precio. El LLM lo separa en filtros concretos, como JSON validado, y en la intención detrás de la búsqueda. Los filtros corren en PostgreSQL, la intención pasa por pgvector y los resultados se revisan antes de mostrarlos. Si un proveedor de IA falla, usa el otro.",
       },
     },
   },
@@ -80,22 +80,22 @@ export const AREAS: readonly AreaContent[] = [
     name: { en: "Data engineering", es: "Ingeniería de datos" },
     topic: { en: "data engineering", es: "ingeniería de datos" },
     pitch: {
-      en: "Pipelines that get the right numbers to the right people every morning.",
-      es: "Pipelines que llevan los números correctos a las personas correctas cada mañana.",
+      en: "Pipelines that collect, clean and watch your data every day.",
+      es: "Pipelines que recogen, limpian y vigilan tus datos todos los días.",
     },
-    know: ["Python", "SQL", "Airflow", "dbt", "Spark", "Kafka", "Snowflake", "BigQuery"],
+    know: ["Python", "Web scraping", "asyncio", "Airflow", "dbt", "Snowflake", "Loki", "AWS Lambda, SQS & SNS", "Medallion architecture"],
     can: {
-      en: ["Bring scattered data into one warehouse", "Replace manual spreadsheets with scheduled reports", "Stream events in near real time"],
-      es: ["Reunir datos dispersos en un solo warehouse", "Reemplazar hojas de cálculo manuales con reportes programados", "Procesar eventos casi en tiempo real"],
+      en: ["Collect data from websites every day and keep it clean", "Turn raw logs into dashboards and alerts", "Build pipelines that warn you before something breaks"],
+      es: ["Recoger datos de sitios web cada día y mantenerlos limpios", "Convertir logs crudos en dashboards y alertas", "Construir pipelines que avisan antes de que algo falle"],
     },
     twin: {
       en: {
-        question: "Our reports take all night. Can you help?",
-        answer: "Probably. On the retail warehouse, nightly reports went from 6 hours to 40 minutes, mostly by loading only what changed instead of everything. I'd start by looking at which steps take longest. It's usually two or three of them.",
+        question: "What kind of data pipelines have you built?",
+        answer: "At Datasite I built one that pulled the logs from more than 80 MongoDB databases into Loki, tagged by environment and cluster. A second step looked for slow queries and collection scans and alerted on critical errors. Airflow ran the checks, and dbt shaped the data in Snowflake for dashboards. It caught real problems, some before they turned into incidents.",
       },
       es: {
-        question: "Nuestros reportes tardan toda la noche. ¿Puedes ayudar?",
-        answer: "Probablemente. En el warehouse de retail los reportes nocturnos pasaron de 6 horas a 40 minutos, sobre todo cargando solo lo que cambió en vez de todo. Empezaría por ver qué pasos tardan más. Casi siempre son dos o tres.",
+        question: "¿Qué tipo de pipelines de datos has construido?",
+        answer: "En Datasite construí uno que llevaba los logs de más de 80 bases MongoDB a Loki, etiquetados por ambiente y clúster. Un segundo paso buscaba consultas lentas y collection scans y alertaba sobre errores críticos. Airflow ejecutaba las revisiones y dbt organizaba los datos en Snowflake para los dashboards. Detectó problemas reales, algunos antes de que se volvieran incidentes.",
       },
     },
   },
@@ -104,22 +104,22 @@ export const AREAS: readonly AreaContent[] = [
     name: { en: "Databases", es: "Bases de datos" },
     topic: { en: "databases", es: "bases de datos" },
     pitch: {
-      en: "Databases that stay fast, backed up and uneventful.",
-      es: "Bases de datos rápidas, respaldadas y sin sorpresas.",
+      en: "Databases that stay fast, backed up and watched.",
+      es: "Bases de datos rápidas, respaldadas y vigiladas.",
     },
-    know: ["PostgreSQL", "SQL Server", "MySQL", "Oracle", "MongoDB", "Redis", "Query tuning", "Replication", "Backups"],
+    know: ["MongoDB", "PostgreSQL", "pgvector", "MySQL", "Snowflake", "Indexing", "Query tuning", "Backups", "Monitoring & on-call"],
     can: {
-      en: ["Find and fix the queries slowing you down", "Migrate to a new engine without downtime", "Set up backups you've actually tested restoring"],
-      es: ["Encontrar y arreglar las consultas que te frenan", "Migrar a otro motor sin tiempo fuera de servicio", "Configurar respaldos que de verdad has probado restaurar"],
+      en: ["Find slow queries and missing indexes before they hurt", "Move data between databases, like Firebase to MongoDB", "Set up backups, monitoring and alerts"],
+      es: ["Encontrar consultas lentas e índices faltantes antes de que duelan", "Mover datos entre bases, como de Firebase a MongoDB", "Configurar respaldos, monitoreo y alertas"],
     },
     twin: {
       en: {
-        question: "Can you migrate our database without downtime?",
-        answer: "Yes. I've done it with 4 TB of clinic records. Replicate to the new server, check the two match, then switch over in minutes during a quiet hour. The part people skip is rehearsing the switch. I always do it at least twice.",
+        question: "Can you help with a slow MongoDB?",
+        answer: "That's where I have the most experience. At Datasite I looked after more than 80 MongoDB databases and was on call for them. I tracked collection scans and slow queries from the logs, and Jenkins builds created the indexes each service needed. At Audyence and Reggora I'm usually the person the team asks about schemas and indexes.",
       },
       es: {
-        question: "¿Puedes migrar nuestra base de datos sin tiempo fuera de servicio?",
-        answer: "Sí. Lo he hecho con 4 TB de expedientes clínicos. Replicar al nuevo servidor, verificar que coinciden y cambiar en minutos en una hora tranquila. Lo que la gente se salta es ensayar el cambio. Yo siempre lo ensayo al menos dos veces.",
+        question: "¿Puedes ayudar con un MongoDB lento?",
+        answer: "Es donde tengo más experiencia. En Datasite me encargué de más de 80 bases MongoDB y estuve de guardia para ellas. Seguía los collection scans y las consultas lentas desde los logs, y los builds de Jenkins creaban los índices que cada servicio necesitaba. En Audyence y en Reggora suelo ser a quien el equipo le pregunta por esquemas e índices.",
       },
     },
   },

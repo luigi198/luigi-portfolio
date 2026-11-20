@@ -25,7 +25,6 @@ export function HomeView({ locale, dictionary }: Props) {
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
       <SiteHeader name={PERSON_NAME} locale={locale} copy={dictionary.site} />
-      <p className="mt-4 text-[0.8125rem] text-muted">{dictionary.site.sample}</p>
       <Hero copy={dictionary.home} />
       <StackExplorer areas={areas} projects={projects} needs={needs} copy={dictionary.explorer} />
       <Contact copy={dictionary.contact} book={dictionary.site.book} />

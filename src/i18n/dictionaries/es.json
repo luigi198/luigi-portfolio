@@ -10,13 +10,12 @@
     "switchLanguage": "Read in English",
     "lightMode": "Modo claro",
     "darkMode": "Modo oscuro",
-    "book": "Agenda una llamada",
-    "sample": "Vista previa. Los proyectos y cifras son ejemplos que se reemplazarán con trabajo real."
+    "book": "Agenda una llamada"
   },
   "home": {
     "headline": "Casi todo problema real atraviesa más de una capa.",
     "intro": "He trabajado en las cinco, desde la app en la mano de alguien hasta la base de datos que la sostiene. Elige un área, un proyecto o el problema que tienes.",
-    "photo": "Foto próximamente"
+    "photoAlt": "Luis Cordoba"
   },
   "explorer": {
     "need": "Necesito",
@@ -32,7 +31,7 @@
     "twinNote": "Vista previa. La versión real responderá a partir de mi historial de trabajo.",
     "back": "Volver a {area}",
     "touched": "Áreas que usó este proyecto",
-    "shot": "Captura o video corto de este proyecto",
+    "visit": "Visitar el sitio",
     "projectBook": "Agenda una llamada sobre un proyecto así",
     "allName": "Las cinco capas",
     "allTopic": "las cinco capas",
@@ -49,7 +48,6 @@
   },
   "contact": {
     "title": "¿Tienes un problema que atraviesa más de una capa?",
-    "body": "Cuéntame qué pasa en una llamada de 30 minutos. Te vas con un siguiente paso claro, trabajemos juntos o no.",
-    "note": "Enlace para agendar próximamente"
+    "body": "Cuéntame qué pasa en una llamada de 30 minutos. Te vas con un siguiente paso claro, trabajemos juntos o no."
   }
 }

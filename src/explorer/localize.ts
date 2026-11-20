@@ -21,6 +21,7 @@ export function localizeProject(project: ProjectContent, locale: Locale): Projec
     client: project.client[locale],
     metric: project.metric[locale],
     story: project.story[locale],
+    links: project.links ?? [],
   };
 }
 

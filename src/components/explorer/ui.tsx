@@ -1,14 +1,15 @@
 import type { ReactNode } from "react";
 import type { Area, AreaId, Project } from "@/explorer/types";
+import { BOOKING_URL } from "@/site/links";
 import { areaColor } from "./format";
-
-export const CONTACT_HREF = "#contact";
 
 export function CtaLink({ children, large = false }: { children: ReactNode; large?: boolean }) {
   const size = large ? "px-6 py-3 text-[1.0625rem]" : "px-4 py-2 text-[0.9375rem]";
   return (
     <a
-      href={CONTACT_HREF}
+      href={BOOKING_URL}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`inline-flex items-center rounded-full bg-cta font-semibold text-cta-ink transition-shadow hover:shadow-[0_0_0_4px_color-mix(in_srgb,var(--cta)_22%,transparent)] ${size}`}
     >
       {children}

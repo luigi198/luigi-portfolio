@@ -10,13 +10,12 @@
     "switchLanguage": "Leer en español",
     "lightMode": "Light mode",
     "darkMode": "Dark mode",
-    "book": "Book a call",
-    "sample": "Preview. Projects and figures are samples that will be replaced with real work."
+    "book": "Book a call"
   },
   "home": {
     "headline": "Most real problems cut through more than one layer.",
     "intro": "I've worked in all five, from the app in someone's hand down to the database under it. Pick an area, a project, or the problem you have.",
-    "photo": "Photo coming soon"
+    "photoAlt": "Luis Cordoba"
   },
   "explorer": {
     "need": "I need",
@@ -32,7 +31,7 @@
     "twinNote": "Preview. The live version will answer from my real work history.",
     "back": "Back to {area}",
     "touched": "Areas this project used",
-    "shot": "Screenshot or short clip of this project",
+    "visit": "Visit the site",
     "projectBook": "Book a call about a project like this",
     "allName": "All five layers",
     "allTopic": "all five layers",
@@ -49,7 +48,6 @@
   },
   "contact": {
     "title": "Have a problem that crosses more than one layer?",
-    "body": "Tell me what's going on in a 30-minute call. You'll leave with a clear next step, whether or not we work together.",
-    "note": "Booking link coming soon"
+    "body": "Tell me what's going on in a 30-minute call. You'll leave with a clear next step, whether or not we work together."
   }
 }

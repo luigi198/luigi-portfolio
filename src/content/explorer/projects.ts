@@ -1,83 +1,121 @@
 import type { ProjectContent } from "@/explorer/types";
 
-// SAMPLE CONTENT: replace with real projects. Listed in the order to show
-// them in; the map re-sorts by how many areas each one used. No dates.
+// Real projects, from private/career-profile.md (git-ignored). Listed in the
+// order to show them in; the map re-sorts by how many areas each one used.
+// No dates or durations, ever.
 export const PROJECTS: readonly ProjectContent[] = [
   {
-    id: "copilot",
-    areas: ["agentic-ai", "mobile", "data", "databases"],
-    title: { en: "Warehouse ops copilot", es: "Copiloto de almacén" },
-    client: { en: "3PL warehouse, on site", es: "Almacén 3PL, en sitio" },
-    metric: { en: "From first visit to production in 6 weeks", es: "De la primera visita a producción en 6 semanas" },
-    story: {
-      en: "Floor leads ask a tablet things like “what's late for dock 4?” and get an answer from live inventory data. I spent the first week on the floor before writing any code.",
-      es: "Los jefes de piso le preguntan a una tableta cosas como “¿qué va tarde en el andén 4?” y reciben respuesta con datos de inventario en vivo. Pasé la primera semana en el piso antes de escribir código.",
+    id: "propiedatos",
+    areas: ["agentic-ai", "full-stack", "data", "databases"],
+    title: { en: "Propiedatos", es: "Propiedatos" },
+    client: { en: "My own product", es: "Producto propio" },
+    metric: {
+      en: "About 1,500 land listings from 3 websites, refreshed every day",
+      es: "Unos 1,500 lotes de 3 sitios web, actualizados cada día",
     },
+    story: {
+      en: "A real-estate data platform for Costa Rica that I built alone. Python scrapers collect land listings every day, and the data is cleaned, validated and tracked over time, including price changes and how long each listing has been up. Each property gets a report that grades it against local prices and adds crime, climate and natural-disaster data, written up by an LLM. Visitors search in plain language, powered by vector search on pgvector.",
+      es: "Una plataforma de datos inmobiliarios para Costa Rica que construí solo. Scrapers en Python recogen lotes cada día, y los datos se limpian, se validan y se siguen en el tiempo, incluidos los cambios de precio y cuánto lleva publicado cada lote. Cada propiedad tiene un reporte que la califica frente a los precios de la zona y suma datos de crimen, clima y desastres naturales, redactado por un LLM. La búsqueda funciona en lenguaje natural, con búsqueda vectorial en pgvector.",
+    },
+    links: ["https://www.propiedatos.com"],
   },
   {
-    id: "triage",
-    areas: ["agentic-ai", "full-stack", "data"],
-    title: { en: "Support triage agent", es: "Agente de soporte" },
-    client: { en: "B2B software company", es: "Empresa de software B2B" },
-    metric: { en: "62% of tickets resolved without a human", es: "62% de los tickets resueltos sin una persona" },
-    story: {
-      en: "An agent that reads each ticket, checks the customer's account through internal tools, and either answers or routes it with a summary. It only acts on what it can look up.",
-      es: "Un agente que lee cada ticket, revisa la cuenta del cliente con herramientas internas y responde o lo enruta con un resumen. Solo actúa sobre lo que puede consultar.",
-    },
-  },
-  {
-    id: "field",
+    id: "psicofit",
     areas: ["mobile", "full-stack", "databases"],
-    title: { en: "Field-service app", es: "App de servicio técnico" },
-    client: { en: "HVAC maintenance company", es: "Empresa de mantenimiento de climatización" },
-    metric: { en: "Used daily by 1,200 technicians, offline first", es: "Usada a diario por 1,200 técnicos, sin conexión primero" },
+    title: { en: "Psicofit", es: "Psicofit" },
+    client: { en: "Platform for psychologists, in progress", es: "Plataforma para psicólogos, en desarrollo" },
+    metric: {
+      en: "Profiles, online booking and instant payments in one portal",
+      es: "Perfiles, citas en línea y pagos inmediatos en un solo portal",
+    },
     story: {
-      en: "Technicians filled paper forms and someone retyped them at night. I built a React Native app that works with no signal, an API to sync it, and the schema behind both.",
-      es: "Los técnicos llenaban formularios en papel y alguien los transcribía de noche. Hice una app en React Native que funciona sin señal, una API para sincronizarla y el esquema detrás de ambas.",
+      en: "Psychologists get a public profile and a booking system like Calendly, with instant payments through Tilopay. Built with Next.js and MongoDB, with SEO from the start. A Flutter app is in development that teaches psychology topics in short lessons, in the style of Duolingo.",
+      es: "Los psicólogos tienen un perfil público y un sistema de citas al estilo de Calendly, con pagos inmediatos por Tilopay. Hecho con Next.js y MongoDB, con SEO desde el inicio. Está en desarrollo una app en Flutter que enseña temas de psicología en lecciones cortas, al estilo de Duolingo.",
     },
   },
   {
-    id: "logistics",
-    areas: ["full-stack", "data", "databases"],
-    title: { en: "Logistics booking platform", es: "Plataforma logística" },
-    client: { en: "Freight forwarder", es: "Agente de carga" },
-    metric: { en: "API at 180 ms p95 while serving 3,000 requests a minute", es: "API a 180 ms p95 con 3,000 solicitudes por minuto" },
+    id: "guest-apps",
+    areas: ["mobile", "full-stack", "databases"],
+    title: { en: "Offline-first guest apps", es: "Apps para huéspedes sin conexión" },
+    client: { en: "Eleven Systems, in-house software", es: "Eleven Systems, software interno" },
+    metric: {
+      en: "2 native iOS apps rebuilt in Flutter for about 50 users",
+      es: "2 apps nativas de iOS rehechas en Flutter para unos 50 usuarios",
+    },
     story: {
-      en: "Bookings lived in email threads. I built the booking web app and API, plus an events pipeline so operations could see every shipment's status live.",
-      es: "Las reservas vivían en hilos de correo. Construí la app web y la API de reservas, más un pipeline de eventos para que operaciones viera el estado de cada envío en vivo.",
+      en: "A messaging app and a trip app for guests staying in properties. I moved both from native iOS to Flutter, stored data on the device with ObjectBox so they work offline, and wrote reconciliation logic that keeps every device in sync with the backend.",
+      es: "Una app de mensajería y una app de viajes para huéspedes en propiedades. Pasé ambas de iOS nativo a Flutter, guardé los datos en el dispositivo con ObjectBox para que funcionen sin conexión y escribí la lógica de reconciliación que mantiene cada dispositivo sincronizado con el backend.",
     },
   },
   {
-    id: "onboarding",
-    areas: ["mobile", "full-stack"],
-    title: { en: "Bank onboarding app", es: "App de alta bancaria" },
-    client: { en: "Digital bank", es: "Banco digital" },
-    metric: { en: "Account opening from 14 minutes to 4", es: "Apertura de cuenta de 14 minutos a 4" },
-    story: {
-      en: "New customers dropped off halfway through a long form. I rebuilt the flow in fewer steps with ID capture on the phone and saved progress on the server.",
-      es: "Los clientes nuevos abandonaban a mitad de un formulario largo. Rehíce el flujo en menos pasos, con captura de identificación en el teléfono y progreso guardado en el servidor.",
-    },
-  },
-  {
-    id: "retail",
+    id: "db-observability",
     areas: ["data", "databases"],
-    title: { en: "Retail sales warehouse", es: "Warehouse de ventas" },
-    client: { en: "Grocery chain, 80 stores", es: "Cadena de supermercados, 80 tiendas" },
-    metric: { en: "Nightly reports from 6 hours to 40 minutes", es: "Reportes nocturnos de 6 horas a 40 minutos" },
+    title: { en: "Database observability", es: "Observabilidad de bases de datos" },
+    client: { en: "Datasite, 80+ MongoDB databases", es: "Datasite, más de 80 bases MongoDB" },
+    metric: {
+      en: "Caught slow queries and collection scans before they became incidents",
+      es: "Detectó consultas lentas y collection scans antes de que se volvieran incidentes",
+    },
     story: {
-      en: "Store managers were getting yesterday's numbers at noon. I rebuilt the loads to process only what changed and moved the heavy joins into the warehouse.",
-      es: "Los gerentes recibían los números de ayer al mediodía. Reconstruí las cargas para procesar solo lo que cambiaba y moví los joins pesados al warehouse.",
+      en: "I looked after more than 80 MongoDB databases, including backups and on-call. I built a Python job that shipped every database's logs to Loki, tagged by environment and cluster, then a pipeline that found collection scans and slow queries and alerted on critical errors. Airflow ran the checks, and the raw data went to Snowflake, where dbt shaped it in a medallion architecture for performance dashboards. Jenkins builds also created the indexes each service needed.",
+      es: "Me encargué de más de 80 bases de datos MongoDB, incluidos respaldos y guardias. Construí un proceso en Python que enviaba los logs de cada base a Loki, etiquetados por ambiente y clúster, y luego un pipeline que encontraba collection scans y consultas lentas y alertaba sobre errores críticos. Airflow ejecutaba las revisiones y los datos crudos iban a Snowflake, donde dbt los organizaba en una arquitectura medallion para dashboards de rendimiento. Los builds de Jenkins también creaban los índices que cada servicio necesitaba.",
     },
   },
   {
-    id: "clinic",
-    areas: ["databases", "data"],
-    title: { en: "Clinic records migration", es: "Migración clínica" },
-    client: { en: "Regional clinic network", es: "Red regional de clínicas" },
-    metric: { en: "4 TB moved to a new engine with no downtime", es: "4 TB migrados a otro motor sin tiempo fuera de servicio" },
-    story: {
-      en: "Twelve clinics shared one aging SQL Server. I replicated it to PostgreSQL, ran both side by side for three weeks, and switched over on a Sunday morning in eleven minutes.",
-      es: "Doce clínicas compartían un SQL Server viejo. Lo repliqué a PostgreSQL, corrí ambos en paralelo tres semanas y cambié un domingo en la mañana en once minutos.",
+    id: "meenta",
+    areas: ["full-stack", "databases"],
+    title: { en: "Health-testing platforms", es: "Plataformas de pruebas de salud" },
+    client: { en: "Meenta, COVID and genetic testing", es: "Meenta, pruebas de COVID y genéticas" },
+    metric: {
+      en: "Led both platforms as the CTO's right hand",
+      es: "Lideré ambas plataformas como mano derecha del CTO",
     },
+    story: {
+      en: "Hired for the genetic-testing platform, I ended up leading it and the COVID-testing platform. We moved the backend from Google Cloud Functions to Node.js and Express and the data from Firebase to MongoDB, and used AWS Lambda for serverless jobs. I worked with the PM to keep new features and maintenance on track.",
+      es: "Me contrataron para la plataforma de pruebas genéticas y terminé liderándola junto con la de pruebas de COVID. Pasamos el backend de Google Cloud Functions a Node.js y Express y los datos de Firebase a MongoDB, y usamos AWS Lambda para tareas serverless. Trabajé con el PM para mantener al día las nuevas funciones y el mantenimiento.",
+    },
+  },
+  {
+    id: "audyence",
+    areas: ["full-stack", "databases"],
+    title: { en: "Audyence", es: "Audyence" },
+    client: { en: "Senior full stack engineer", es: "Ingeniero full stack sénior" },
+    metric: {
+      en: "Redesigned MongoDB schemas and indexes, and shipped payments and reporting",
+      es: "Rediseñé esquemas e índices de MongoDB, y entregué pagos y reportes",
+    },
+    story: {
+      en: "Full stack work on a NestJS and React product running on AWS. I owned the MongoDB schema and index improvements, added payments with Stripe and reporting with Metabase, and worked directly with the PM on new features and improvements.",
+      es: "Trabajo full stack en un producto con NestJS y React sobre AWS. Me encargué de mejorar los esquemas e índices de MongoDB, agregué pagos con Stripe y reportes con Metabase, y trabajé directamente con el PM en nuevas funciones y mejoras.",
+    },
+  },
+  {
+    id: "angular",
+    areas: ["full-stack"],
+    title: { en: "Angular modernization", es: "Modernización a Angular" },
+    client: { en: "Jetson Systems, now Eleven Systems", es: "Jetson Systems, hoy Eleven Systems" },
+    metric: {
+      en: "Led 5 developers and 2 QAs moving about 6 apps to modern Angular",
+      es: "Lideré a 5 desarrolladores y 2 QA para pasar unas 6 apps a Angular moderno",
+    },
+    story: {
+      en: "I joined as a junior front-end developer and became team lead. We had about six AngularJS apps sharing components, and I led their move to the newest Angular, shared components included. I also set up the Jenkins deployments for each environment.",
+      es: "Entré como desarrollador front-end junior y llegué a líder del equipo. Teníamos unas seis apps en AngularJS que compartían componentes, y lideré su paso al Angular más reciente, incluidos los componentes compartidos. También configuré los despliegues con Jenkins para cada ambiente.",
+    },
+  },
+  {
+    id: "small-business",
+    areas: ["full-stack"],
+    title: { en: "Websites for small businesses", es: "Sitios para pequeños negocios" },
+    client: { en: "Lactanne, Solaris and Hanslistenia", es: "Lactanne, Solaris y Hanslistenia" },
+    metric: {
+      en: "3 sites built for search, with blogs and an online shop",
+      es: "3 sitios hechos para buscadores, con blog y tienda en línea",
+    },
+    story: {
+      en: "Lactanne and Solaris, a tanning salon, have Next.js sites built to rank in search, each with its own blog. Hanslistenia, a calisthenics center, has an online shop.",
+      es: "Lactanne y Solaris, un salón de bronceado, tienen sitios en Next.js hechos para posicionar en buscadores, cada uno con su blog. Hanslistenia, un centro de calistenia, tiene una tienda en línea.",
+    },
+    links: ["https://lactanne.com", "https://solarisbronceado.com", "https://hanslistenia.com"],
   },
 ];

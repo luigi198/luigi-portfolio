@@ -13,10 +13,8 @@ export function Contact({ copy, book }: Props) {
         {copy.title}
       </h2>
       <p className="text-[1.0625rem] text-muted">{copy.body}</p>
-      <div className="flex flex-wrap items-center gap-4">
-        {/* TODO(booking): point at the real calendar link once it exists. */}
+      <div>
         <CtaLink large>{book}</CtaLink>
-        <span className="text-sm text-muted">{copy.note}</span>
       </div>
     </section>
   );

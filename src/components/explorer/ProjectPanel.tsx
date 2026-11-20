@@ -32,10 +32,23 @@ export function ProjectPanel({ project, areas, backTo, copy, onArea, onBack }: P
       <p className="mt-6 mb-4 max-w-[40rem] text-[clamp(1.375rem,3vw,1.875rem)] leading-tight font-semibold tracking-[-0.025em]">
         {project.metric}
       </p>
-      <div className="mb-8 grid aspect-[16/10] w-full max-w-[40rem] place-items-center rounded-xl border border-dashed border-rule bg-surface p-4 text-center text-sm text-muted">
-        {copy.shot}
-      </div>
       <p className="mb-8 max-w-[40rem] text-[1.0625rem]">{project.story}</p>
+      {project.links.length > 0 && (
+        <p className="mb-8 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="text-muted">{copy.visit}:</span>
+          {project.links.map((href) => (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold underline decoration-rule decoration-2 underline-offset-[3px] hover:decoration-ink"
+            >
+              {new URL(href).hostname.replace(/^www\./, "")}
+            </a>
+          ))}
+        </p>
+      )}
       <h3 className="mb-3 max-w-[40rem] border-b border-rule pb-2 font-semibold">{copy.touched}</h3>
       <AreaChips areas={areas.filter((a) => used.has(a.id))} onArea={onArea} />
       <p className="mt-10">

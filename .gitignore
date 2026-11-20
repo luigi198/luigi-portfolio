@@ -58,3 +58,6 @@ Thumbs.db
 *.pem
 .turbo
 .cache
+
+# private notes (career profile, interview material) — never pushed; the repo is public
+/private/

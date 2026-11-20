@@ -31,6 +31,8 @@ export interface ProjectContent {
   client: Localized<string>;
   metric: Localized<string>;
   story: Localized<string>;
+  /** Public https URLs of the live product or sites, if any. */
+  links?: readonly string[];
 }
 
 export interface NeedContent {
@@ -61,6 +63,7 @@ export interface Project {
   client: string;
   metric: string;
   story: string;
+  links: readonly string[];
 }
 
 export interface Need {
