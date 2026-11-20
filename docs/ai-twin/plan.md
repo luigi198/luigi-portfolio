@@ -66,7 +66,9 @@ responses.
 - `src/site/profile.ts`: `CAREER_YEARS`, the one allowed duration; tests keep the site copy in sync.
 - Tests (`tests/twin-content.test.ts`): no email, phone or secrets; no years, and no duration except the career total (V6); every example in both languages; starters map to examples; rates and availability never state a price; knowledge ≥4,000 characters (above the 512-token cache minimum; measure with token counting in Phase 3); cybersecurity framed as learning.
 
-### Phase 2: Domain (S4, S5, S9, A3, A4, A6, C2, P4)
+### Phase 2: Domain (S4, S5, S9, A3, A4, A6, C2, P4) ✅
+- Done: `types.ts`, `ports.ts`, `policy.ts` (500 chars, 10 visitor turns, 1,000 output tokens), `prompt.ts`, `service.ts` (3 strikes before cool-off). Tests: `tests/twin-{policy,prompt,service}.test.ts`.
+- The screen sees the **whole** conversation, not just the new message, because the browser sends the history and could forge earlier turns.
 - `prompt.ts`: assembles system prompt = role + rules + knowledge + examples + fixed redirect lines. Rules include "in Spanish, use usted, never tú" (V5); the eval set checks it. Test: two builds are byte-identical (C2) and contain no per-request data.
 - `policy.ts`: message length cap, turn cap, history validation (roles alternate, only text, lengths re-checked). Tests: happy path plus each failure path.
 - `service.ts` over the `ports.ts` interfaces: enforces the request order, maps outcomes to visitor-safe results (blocked, limited, over budget, refused, answered). Tests use small in-test fakes of the *ports* (process-boundary stand-ins), not mocks of our own modules.
