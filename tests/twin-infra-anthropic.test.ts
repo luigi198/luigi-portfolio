@@ -2,6 +2,10 @@ import Anthropic from "@anthropic-ai/sdk";
 import { describe, expect, it } from "vitest";
 import { MAIN_MODEL, SCREEN_MODEL, createModelClient, createScreener } from "@/twin/infra/anthropic";
 import type { ModelEvent } from "@/twin/ports";
+import { message as messageFor, sse, streamedAnswer as answerFor } from "./helpers/fake-anthropic";
+
+const streamedAnswer = (texts: string[], stopReason: string) => answerFor(MAIN_MODEL, texts, stopReason);
+const message = (text: string, stopReason = "end_turn") => messageFor(SCREEN_MODEL, text, stopReason);
 
 /**
  * Fake HTTP for the official SDK. Bodies follow the Messages API contract:
@@ -18,41 +22,6 @@ function fakeFetch(respond: () => Response) {
 }
 
 const client = (fetch: typeof globalThis.fetch) => new Anthropic({ apiKey: "test-key", fetch, maxRetries: 0 });
-
-function sse(events: object[]): Response {
-  const body = events.map((e) => `event: ${(e as { type: string }).type}\ndata: ${JSON.stringify(e)}\n\n`).join("");
-  return new Response(body, { status: 200, headers: { "content-type": "text/event-stream" } });
-}
-
-function streamedAnswer(texts: string[], stopReason: string): object[] {
-  return [
-    {
-      type: "message_start",
-      message: {
-        id: "msg_1", type: "message", role: "assistant", model: MAIN_MODEL, content: [],
-        stop_reason: null, stop_sequence: null,
-        usage: { input_tokens: 20, output_tokens: 1, cache_creation_input_tokens: 0, cache_read_input_tokens: 6000 },
-      },
-    },
-    { type: "content_block_start", index: 0, content_block: { type: "thinking", thinking: "", signature: "" } },
-    { type: "content_block_delta", index: 0, delta: { type: "signature_delta", signature: "sig" } },
-    { type: "content_block_stop", index: 0 },
-    { type: "content_block_start", index: 1, content_block: { type: "text", text: "" } },
-    ...texts.map((text) => ({ type: "content_block_delta", index: 1, delta: { type: "text_delta", text } })),
-    { type: "content_block_stop", index: 1 },
-    { type: "message_delta", delta: { stop_reason: stopReason, stop_sequence: null }, usage: { output_tokens: 100 } },
-    { type: "message_stop" },
-  ];
-}
-
-function message(text: string, stopReason = "end_turn"): Response {
-  const body = {
-    id: "msg_2", type: "message", role: "assistant", model: SCREEN_MODEL,
-    content: [{ type: "text", text }], stop_reason: stopReason, stop_sequence: null,
-    usage: { input_tokens: 400, output_tokens: 20, cache_creation_input_tokens: 0, cache_read_input_tokens: 0 },
-  };
-  return new Response(JSON.stringify(body), { status: 200, headers: { "content-type": "application/json" } });
-}
 
 async function drain(events: AsyncIterable<ModelEvent>): Promise<ModelEvent[]> {
   const out: ModelEvent[] = [];

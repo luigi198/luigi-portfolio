@@ -35,10 +35,9 @@ function priced(usage: Anthropic.Messages.Usage, prices: Prices): Usage {
   return { ...tokens, costUsd };
 }
 
-const KNOWN_STOPS: ReadonlySet<string> = new Set(["end_turn", "max_tokens", "refusal"]);
-function stopReason(value: string | null): StopReason {
-  return value !== null && KNOWN_STOPS.has(value) ? (value as StopReason) : "other";
-}
+const KNOWN_STOPS: readonly StopReason[] = ["end_turn", "max_tokens", "refusal"];
+const isKnownStop = (value: string | null): value is StopReason => KNOWN_STOPS.some((s) => s === value);
+const stopReason = (value: string | null): StopReason => (isKnownStop(value) ? value : "other");
 
 const toMessages = (turns: readonly ChatTurn[]) => turns.map((t) => ({ role: t.role, content: t.text }));
 

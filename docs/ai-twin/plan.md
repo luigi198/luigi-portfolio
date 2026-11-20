@@ -83,7 +83,10 @@ responses.
 - Tests: mocked HTTP responses copied from the providers' documented shapes, with happy and failure paths (timeouts, 429, refusal, store down → fail closed).
 - Vitest config gets fixed fake values for every new env var.
 
-### Phase 4: API route (S3, P1, P2)
+### Phase 4: API route (S3, P1, P2) ✅
+- Done: `src/app/api/twin/route.ts` (thin), `src/twin/http/{request,response,visitor}.ts`. Answers and the redirect line stream as NDJSON (`{"type":"delta"|"replace"|"error",…}` per line); every other outcome is JSON `{ "error": kind }` with 400 / 403 / 409 / 429 / 503. Visitor id = salted SHA-256 of the IP.
+- Tests: `tests/twin-http.test.ts`, and `tests/twin-route.test.ts`, which runs the real route end to end with only BotID, Anthropic HTTP and Upstash HTTP faked (`tests/helpers/`).
+- Verified on `next start`: with no env vars the route returns 503 `{"error":"unavailable"}` and logs `twin.config_failed`.
 - Read the Next 16 route-handler and streaming docs in `node_modules/next/dist/docs/` first (AGENTS.md rule).
 - `POST /api/twin`: validates the JSON body, calls the service, streams text back, returns generic errors only. Structured JSON logs without message content.
 - Tests: route-level tests with the boundary mocks (bad body → 400, limited → 429 with safe text, success → streamed text).
