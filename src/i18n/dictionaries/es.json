@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Luis Cordoba — Desarrollador de Software y Forward Deployed Engineer",
-    "description": "Luis Cordoba es desarrollador de software y forward deployed engineer que lleva software a producción junto a los clientes. Portafolio, experiencia y currículum.",
+    "description": "Luis Cordoba es desarrollador de software y forward deployed engineer con 13 años de experiencia que lleva software a producción junto a los clientes. Portafolio, experiencia y currículum.",
     "jobTitle": "Desarrollador de Software y Forward Deployed Engineer"
   },
   "site": {
@@ -10,11 +10,11 @@
     "switchLanguage": "Read in English",
     "lightMode": "Modo claro",
     "darkMode": "Modo oscuro",
-    "book": "Agenda una llamada"
+    "book": "Agende una llamada"
   },
   "home": {
     "headline": "Casi todo problema real atraviesa más de una capa.",
-    "intro": "He trabajado en las cinco, desde la app en la mano de alguien hasta la base de datos que la sostiene. Elige un área, un proyecto o el problema que tienes.",
+    "intro": "En 13 años construyendo software he trabajado en las cinco, desde la app en la mano de alguien hasta la base de datos que la sostiene. Elija un área, un proyecto o el problema que tiene.",
     "photoAlt": "Luis Cordoba"
   },
   "explorer": {
@@ -25,29 +25,29 @@
     "tools": "Herramientas",
     "know": "Lo que sé",
     "done": "Lo que he hecho",
-    "can": "Lo que puedo hacer por ti",
-    "ask": "Pregúntale a mi versión IA sobre {area}",
+    "can": "Lo que puedo hacer por usted",
+    "ask": "Pregúntele a mi versión IA sobre {area}",
     "hide": "Ocultar la conversación",
     "twinNote": "Vista previa. La versión real responderá a partir de mi historial de trabajo.",
     "back": "Volver a {area}",
     "touched": "Áreas que usó este proyecto",
     "visit": "Visitar el sitio",
-    "projectBook": "Agenda una llamada sobre un proyecto así",
+    "projectBook": "Agende una llamada sobre un proyecto así",
     "allName": "Las cinco capas",
     "allTopic": "las cinco capas",
     "allAreas": "Áreas",
     "allProjects": "En 3+ áreas",
-    "allPitch": "Como forward deployed engineer trabajo dentro de tu equipo y llevo un problema desde la primera conversación hasta producción, toque las capas que toque.",
+    "allPitch": "Como forward deployed engineer trabajo dentro de su equipo y llevo un problema desde la primera conversación hasta producción, toque las capas que toque.",
     "how": "Cómo funciona",
     "endToEnd": "Proyectos de punta a punta",
     "steps": [
       "Pasamos la primera semana en el problema real, con las personas que lo tienen.",
-      "Entrego una primera versión que funciona y que puedes usar y criticar.",
-      "La entrego con pruebas y documentación que tu equipo puede mantener."
+      "Entrego una primera versión que funciona y que usted puede usar y criticar.",
+      "La entrego con pruebas y documentación que su equipo puede mantener."
     ]
   },
   "contact": {
-    "title": "¿Tienes un problema que atraviesa más de una capa?",
-    "body": "Cuéntame qué pasa en una llamada de 30 minutos. Te vas con un siguiente paso claro, trabajemos juntos o no."
+    "title": "¿Tiene un problema que atraviesa más de una capa?",
+    "body": "Cuénteme qué pasa en una llamada de 30 minutos. Se va con un siguiente paso claro, trabajemos juntos o no."
   }
 }
