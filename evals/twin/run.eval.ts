@@ -10,7 +10,7 @@ import { checkResult, type CheckFailure, type EvalCase, type EvalResult } from "
 
 /**
  * Runs the eval set against the real Claude API (research E3). Costs money, so it
- * only runs through `npm run eval:twin`, with TWIN_EVAL=1 and a real key. Stores
+ * is off by default: it runs only as `TWIN_EVAL=1 npm run eval:twin`, with a real key. Stores
  * and the bot check are in memory: this measures the prompt and models, not Redis.
  */
 
@@ -27,7 +27,7 @@ interface Row {
 function requireOptIn(): string {
   const key = process.env.ANTHROPIC_API_KEY;
   if (process.env.TWIN_EVAL !== "1" || !key) {
-    throw new Error("The eval calls the paid API. Run it with `npm run eval:twin` and ANTHROPIC_API_KEY in .env.local.");
+    throw new Error("The eval calls the paid API. It is off by default. Run it on purpose with `TWIN_EVAL=1 npm run eval:twin` and ANTHROPIC_API_KEY in .env.local.");
   }
   return key;
 }

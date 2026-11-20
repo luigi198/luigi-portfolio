@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "eval:twin": "TWIN_EVAL=1 node --env-file-if-exists=.env.local node_modules/vitest/vitest.mjs run --config vitest.eval.config.ts"
+    "eval:twin": "node --env-file-if-exists=.env.local node_modules/vitest/vitest.mjs run --config vitest.eval.config.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.6.0",
