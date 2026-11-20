@@ -51,7 +51,7 @@ export function TwinChat({ locale, copy, book, starters }: Props) {
             ) : (
               <li key={m.id} className="max-w-[34rem] rounded-[14px] rounded-bl-[4px] border border-rule bg-surface px-4 py-3 whitespace-pre-wrap">
                 <span className="sr-only">{copy.label}: </span>
-                {m.text || <span className="text-muted">{copy.writing}</span>}
+                {m.text || (!m.done && <span className="text-muted">{copy.writing}</span>)}
               </li>
             ),
           )}

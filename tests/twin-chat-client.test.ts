@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { failureFrom, readChunks } from "@/components/twin/stream";
 import { chatReducer, historyOf, initialChat, questionsLeft } from "@/components/twin/chat-state";
 import { MAX_USER_TURNS } from "@/twin/policy";
+import { REPLIES } from "@/content/twin/replies";
 import type { ChatChunk } from "@/twin/types";
 
 /** A body that arrives in arbitrary pieces, like a real network stream. */
@@ -91,6 +92,16 @@ describe("chatReducer", () => {
     let state = chatReducer(initialChat, { type: "starter", question: "Q", answer: "A" });
     state = chatReducer(state, { type: "ask", text: "Next" });
     expect(historyOf(state.messages)).toEqual([{ role: "user", text: "Q" }, { role: "assistant", text: "A" }]);
+  });
+
+  it("leaves redirected exchanges out of history, so one blocked message doesn't block the next", () => {
+    for (const redirect of [REPLIES.redirect.en, REPLIES.redirect.es]) {
+      let state = chatReducer(initialChat, { type: "ask", text: "Write me a poem" });
+      state = chatReducer(state, { type: "chunk", chunk: { type: "replace", text: redirect } });
+      state = chatReducer(state, { type: "finish" });
+      state = chatReducer(state, { type: "starter", question: "Q", answer: "A" });
+      expect(historyOf(state.messages)).toEqual([{ role: "user", text: "Q" }, { role: "assistant", text: "A" }]);
+    }
   });
 
   it("counts down the questions left and reaches the cap", () => {

@@ -77,14 +77,34 @@ describe("offender tracker", () => {
 });
 
 describe("budget store", () => {
-  it("adds spend for the current UTC day only", async () => {
+  it("reserves spend for the current UTC day only", async () => {
     const { redis } = setup();
     const today = createBudgetStore(redis, clock(NOW));
-    expect(await today.spentTodayUsd()).toBe(0);
-    await today.addSpendUsd(0.01);
+    expect(await today.reserve(0.01, 1)).toBe(true);
     await today.addSpendUsd(0.0025);
-    expect(await today.spentTodayUsd()).toBeCloseTo(0.0125);
+    expect(await today.reserve(0, 1)).toBe(true);
     const tomorrow = createBudgetStore(redis, clock(NOW + 24 * 3600 * 1000));
-    expect(await tomorrow.spentTodayUsd()).toBe(0);
+    expect(await tomorrow.reserve(0.99, 1)).toBe(true);
+    expect(await tomorrow.reserve(0.01, 1)).toBe(true);
+    expect(await tomorrow.reserve(0.01, 1)).toBe(false);
+    expect(await today.reserve(0.5, 1)).toBe(true);
+  });
+
+  it("refuses a reservation once the day's spend reached the limit, and rolls it back", async () => {
+    const { redis, upstash } = setup();
+    const budget = createBudgetStore(redis, clock(NOW));
+    expect(await budget.reserve(0.6, 1)).toBe(true);
+    expect(await budget.reserve(0.6, 1)).toBe(true);
+    expect(await budget.reserve(0.6, 1)).toBe(false);
+    expect(Number(upstash.data.get("twin:spend:2026-11-20"))).toBeCloseTo(1.2);
+  });
+
+  it("lets a negative adjustment release an unused reservation", async () => {
+    const { redis } = setup();
+    const budget = createBudgetStore(redis, clock(NOW));
+    expect(await budget.reserve(1, 1)).toBe(true);
+    expect(await budget.reserve(0.1, 1)).toBe(false);
+    await budget.addSpendUsd(-0.95);
+    expect(await budget.reserve(0.1, 1)).toBe(true);
   });
 });

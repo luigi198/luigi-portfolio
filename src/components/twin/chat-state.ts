@@ -1,3 +1,4 @@
+import { REPLIES } from "@/content/twin/replies";
 import { MAX_USER_TURNS } from "@/twin/policy";
 import type { ChatChunk, ChatTurn } from "@/twin/types";
 import type { ChatFailure } from "./stream";
@@ -66,12 +67,19 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
   }
 }
 
-/** Complete question-and-answer pairs only, in the shape the API expects. O(n). */
+/** Redirect lines in every language; an exchange that ended in one was off-topic or blocked. */
+const REDIRECTS: ReadonlySet<string> = new Set(Object.values(REPLIES.redirect));
+
+/**
+ * Complete question-and-answer pairs only, in the shape the API expects. Redirected
+ * exchanges are left out: the screen judges the whole history, so sending one back
+ * would get every later question blocked too. O(n).
+ */
 export function historyOf(messages: readonly ChatMessage[]): ChatTurn[] {
   const turns: ChatTurn[] = [];
   for (let i = 0; i + 1 < messages.length; i += 2) {
     const [question, answer] = [messages[i], messages[i + 1]];
-    if (!answer.done || !answer.text.trim()) continue;
+    if (!answer.done || !answer.text.trim() || REDIRECTS.has(answer.text.trim())) continue;
     turns.push({ role: "user", text: question.text }, { role: "assistant", text: answer.text });
   }
   return turns;

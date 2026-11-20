@@ -10,7 +10,6 @@ import { createBudgetStore, createOffenderTracker, createRateLimiter } from "@/t
 
 /** One retry for transient API errors; past that the visitor sees the error chunk. */
 const ANTHROPIC_MAX_RETRIES = 1;
-const ANTHROPIC_TIMEOUT_MS = 60_000;
 
 const systemClock: Clock = { now: () => Date.now() };
 
@@ -18,8 +17,8 @@ const systemClock: Clock = { now: () => Date.now() };
 export function createTwinDeps(config: TwinConfig): TwinDeps {
   const anthropic = new Anthropic({
     apiKey: config.anthropicApiKey,
+    // Each call also carries a whole-call deadline, retries included (see infra/anthropic.ts).
     maxRetries: ANTHROPIC_MAX_RETRIES,
-    timeout: ANTHROPIC_TIMEOUT_MS,
   });
   const redis = createRedis({ url: config.redisUrl, token: config.redisToken });
   return {

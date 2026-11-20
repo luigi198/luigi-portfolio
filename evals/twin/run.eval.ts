@@ -90,7 +90,10 @@ describe("AI twin eval (paid)", () => {
       bot: { isBot: async () => false },
       rateLimiter: { allow: async () => true },
       offenders: { strikes: async () => 0, addStrike: async () => {} },
-      budget: { spentTodayUsd: async () => spent, addSpendUsd: async (n) => void (spent += n) },
+      budget: {
+        reserve: async (amount, limit) => spent < limit && ((spent += amount), true),
+        addSpendUsd: async (n) => void (spent += n),
+      },
       screener: createScreener(anthropic),
       model: createModelClient(anthropic),
       logger: { info: record, warn: record, error: record },

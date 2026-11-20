@@ -51,6 +51,17 @@ describe("visitorIdFrom", () => {
     expect(visitorIdFrom(headers("203.0.113.7"), "other")).not.toBe(visitorIdFrom(headers("203.0.113.7"), "salt"));
   });
 
+  it("groups IPv6 addresses by their /64 network, which one household or server controls", () => {
+    const id = visitorIdFrom(headers("2001:db8:85a3:12::1"), "salt");
+    expect(visitorIdFrom(headers("2001:db8:85a3:12:ffff:abcd:1:2"), "salt")).toBe(id);
+    expect(visitorIdFrom(headers("2001:0db8:85a3:0012:0:0:0:9"), "salt")).toBe(id);
+    expect(visitorIdFrom(headers("2001:db8:85a3:13::1"), "salt")).not.toBe(id);
+  });
+
+  it("treats an IPv4-mapped IPv6 address as the IPv4 address", () => {
+    expect(visitorIdFrom(headers("::ffff:203.0.113.7"), "salt")).toBe(visitorIdFrom(headers("203.0.113.7"), "salt"));
+  });
+
   it("groups requests with no IP header under one shared id", () => {
     expect(visitorIdFrom(new Headers(), "salt")).toBe(visitorIdFrom(new Headers(), "salt"));
   });

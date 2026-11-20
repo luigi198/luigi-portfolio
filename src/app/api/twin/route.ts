@@ -7,7 +7,10 @@ import { errorResponse, outcomeResponse } from "@/twin/http/response";
 import { visitorIdFrom } from "@/twin/http/visitor";
 import { createTwinService } from "@/twin/service";
 
-/** Streams can outlast the default; the model call itself times out sooner. */
+/**
+ * Streams can outlast the default. The screen and answer deadlines in
+ * src/twin/infra/anthropic.ts add up to well under this, so spend is always settled.
+ */
 export const maxDuration = 60;
 
 const bootLogger = createJsonLogger({ now: () => Date.now() });

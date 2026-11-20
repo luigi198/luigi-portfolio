@@ -23,18 +23,28 @@ export interface ModelRequest {
   maxTokens: number;
 }
 
+/**
+ * `started` means the provider accepted the request, so it may bill from here on;
+ * an error before it means the request was rejected and cost nothing.
+ */
 export type ModelEvent =
+  | { type: "started" }
   | { type: "text"; text: string }
   | { type: "end"; stopReason: StopReason; usage: Usage };
 
 /** The main conversation model (research C1, A5, S11). */
 export interface ModelClient {
   stream(request: ModelRequest): AsyncIterable<ModelEvent>;
+  /** An upper bound on what the request can cost, reserved from the budget before it runs. */
+  maxCostUsd(request: ModelRequest): number;
 }
 
-/** The small-model harmlessness screen. A screen refusal must come back as `allowed: false` (S8). */
+/** `unreadable` is a reply that didn't match the verdict schema: neither allowed nor the visitor's fault. */
+export type ScreenVerdict = "allowed" | "blocked" | "unreadable";
+
+/** The small-model harmlessness screen. A screen refusal must come back as `blocked` (S8). */
 export interface Screener {
-  screen(turns: readonly ChatTurn[]): Promise<{ allowed: boolean; usage: Usage }>;
+  screen(turns: readonly ChatTurn[]): Promise<{ verdict: ScreenVerdict; usage: Usage }>;
 }
 
 /** Bot check for the current request (A1). */
@@ -55,8 +65,13 @@ export interface OffenderTracker {
 
 /** Spend for the current day, across all visitors (A6). */
 export interface BudgetStore {
-  spentTodayUsd(): Promise<number>;
-  addSpendUsd(amount: number): Promise<void>;
+  /**
+   * Atomically adds `amountUsd` if today's spend before it was under `limitUsd`;
+   * otherwise records nothing and returns false. Concurrent requests can't all slip under.
+   */
+  reserve(amountUsd: number, limitUsd: number): Promise<boolean>;
+  /** Adds to today's spend; a negative amount gives back an unused reservation. */
+  addSpendUsd(amountUsd: number): Promise<void>;
 }
 
 export type LogFields = Record<string, string | number | boolean | undefined>;

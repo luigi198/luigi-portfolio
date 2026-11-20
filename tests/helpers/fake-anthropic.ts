@@ -3,12 +3,15 @@
  * streamed answer, and a Message object for a non-streamed call.
  */
 
-export function sse(events: object[]): Response {
-  const body = events.map((e) => `event: ${(e as { type: string }).type}\ndata: ${JSON.stringify(e)}\n\n`).join("");
+/** One server-sent event body: every Messages API stream event carries its `type`. */
+type SseEvent = { type: string } & Record<string, unknown>;
+
+export function sse(events: readonly SseEvent[]): Response {
+  const body = events.map((e) => `event: ${e.type}\ndata: ${JSON.stringify(e)}\n\n`).join("");
   return new Response(body, { status: 200, headers: { "content-type": "text/event-stream" } });
 }
 
-export function streamedAnswer(model: string, texts: string[], stopReason: string): object[] {
+export function streamedAnswer(model: string, texts: string[], stopReason: string): SseEvent[] {
   return [
     {
       type: "message_start",

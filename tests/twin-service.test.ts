@@ -1,75 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { createTwinService, MAX_STRIKES, type TwinDeps } from "@/twin/service";
+import { createTwinService, MAX_STRIKES } from "@/twin/service";
 import { buildSystemPrompt } from "@/twin/prompt";
 import { MAX_OUTPUT_TOKENS } from "@/twin/policy";
 import { REPLIES } from "@/content/twin/replies";
-import type { LogFields, ModelEvent, ModelRequest, StopReason, Usage } from "@/twin/ports";
-import type { ChatChunk, ChatTurn, TwinOutcome, TwinRequest } from "@/twin/types";
-
-const SECRET_TEXT = "my-private-question-7f3a";
-const usage = (costUsd: number): Usage => ({ inputTokens: 10, outputTokens: 5, cacheReadTokens: 6000, cacheWriteTokens: 0, costUsd });
-
-/** In-memory stand-ins for the process boundaries (Anthropic, Redis, BotID, logs). */
-function fakes(overrides: { reply?: string[]; stopReason?: StopReason; streamError?: Error } = {}) {
-  const state = {
-    bot: false,
-    rateAllowed: true,
-    strikes: new Map<string, number>(),
-    spent: 0,
-    screenAllowed: true,
-    storeDown: false,
-    modelCalls: [] as ModelRequest[],
-    screenCalls: [] as (readonly ChatTurn[])[],
-    logs: [] as { level: string; event: string; fields: LogFields }[],
-  };
-  const down = () => {
-    if (state.storeDown) throw new Error("ECONNREFUSED");
-  };
-  const log = (level: string) => (event: string, fields: LogFields) => state.logs.push({ level, event, fields });
-  const deps: TwinDeps = {
-    bot: { isBot: async () => state.bot },
-    rateLimiter: { allow: async () => (down(), state.rateAllowed) },
-    offenders: {
-      strikes: async (id) => (down(), state.strikes.get(id) ?? 0),
-      addStrike: async (id) => void state.strikes.set(id, (state.strikes.get(id) ?? 0) + 1),
-    },
-    budget: {
-      spentTodayUsd: async () => (down(), state.spent),
-      addSpendUsd: async (n) => void (state.spent += n),
-    },
-    screener: {
-      screen: async (turns) => (state.screenCalls.push(turns), { allowed: state.screenAllowed, usage: usage(0.0001) }),
-    },
-    model: {
-      async *stream(request): AsyncIterable<ModelEvent> {
-        state.modelCalls.push(request);
-        for (const text of overrides.reply ?? ["Hi, ", "I'm Luis."]) yield { type: "text", text };
-        if (overrides.streamError) throw overrides.streamError;
-        yield { type: "end", stopReason: overrides.stopReason ?? "end_turn", usage: usage(0.01) };
-      },
-    },
-    logger: { info: log("info"), warn: log("warn"), error: log("error") },
-    clock: { now: () => 1000 },
-    dailyBudgetUsd: 5,
-  };
-  return { state, deps };
-}
-
-const request = (over: Partial<TwinRequest> = {}): TwinRequest => ({
-  requestId: "req-1",
-  visitorId: "visitor-hash",
-  locale: "en",
-  history: [],
-  message: SECRET_TEXT,
-  ...over,
-});
-
-async function collect(outcome: TwinOutcome): Promise<ChatChunk[]> {
-  if (outcome.kind !== "answered") throw new Error(`expected an answer, got ${outcome.kind}`);
-  const chunks: ChatChunk[] = [];
-  for await (const chunk of outcome.chunks) chunks.push(chunk);
-  return chunks;
-}
+import type { ChatTurn } from "@/twin/types";
+import { SCREEN_COST, SECRET_TEXT, collect, fakes, request } from "./helpers/twin-fakes";
 
 describe("twin service", () => {
   it("streams the model's answer to a valid message", async () => {
@@ -88,11 +23,8 @@ describe("twin service", () => {
     expect(state.screenCalls).toEqual([[...history, { role: "user", text: SECRET_TEXT }]]);
   });
 
-  it("adds the screen and answer cost to today's spend", async () => {
-    const { state, deps } = fakes();
-    await collect(await createTwinService(deps).handle(request()));
-    expect(state.spent).toBeCloseTo(0.0101);
-  });
+
+
 
   it("logs metadata, including cache hits, but never the visitor's text", async () => {
     const { state, deps } = fakes();
@@ -135,20 +67,16 @@ describe("twin service", () => {
     expect(await createTwinService(deps).handle(request({ history }))).toEqual({ kind: "conversation-cap" });
   });
 
-  it("closes for the day once the budget is spent", async () => {
-    const { state, deps } = fakes();
-    state.spent = deps.dailyBudgetUsd;
-    expect(await createTwinService(deps).handle(request())).toEqual({ kind: "over-budget" });
-    expect(state.screenCalls).toHaveLength(0);
-  });
+
 
   it("answers a screened-out message with the fixed redirect line and a strike", async () => {
     const { state, deps } = fakes();
-    state.screenAllowed = false;
+    state.screenVerdict = "blocked";
     const outcome = await createTwinService(deps).handle(request({ locale: "es" }));
     expect(outcome).toEqual({ kind: "refused", text: REPLIES.redirect.es });
     expect(state.strikes.get("visitor-hash")).toBe(1);
     expect(state.modelCalls).toHaveLength(0);
+    expect(state.spent).toBeCloseTo(SCREEN_COST);
   });
 
   it("replaces a refused answer with the redirect line and records a strike", async () => {

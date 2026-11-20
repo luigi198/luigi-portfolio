@@ -3,6 +3,17 @@
  * JSON array of commands, answered with [{ result } | { error }] in order.
  * Implements only the commands the twin sends.
  */
+type Command = (string | number)[];
+
+const isCommand = (value: unknown): value is Command =>
+  Array.isArray(value) && value.every((part) => typeof part === "string" || typeof part === "number");
+
+/** Upstash's pipeline body is a JSON array of commands; anything else is a client bug. */
+function commandsFrom(body: unknown): Command[] {
+  if (!Array.isArray(body) || !body.every(isCommand)) throw new Error("fake Upstash: body is not a command pipeline");
+  return body;
+}
+
 export function fakeUpstash() {
   const data = new Map<string, string>();
   const ttl = new Map<string, number>();
@@ -30,7 +41,7 @@ export function fakeUpstash() {
 
   const fetch = async (url: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     if (down) return new Response(JSON.stringify({ error: "ERR service unavailable" }), { status: 503 });
-    const body = JSON.parse(String(init?.body)) as (string | number)[][];
+    const body = commandsFrom(JSON.parse(String(init?.body)));
     calls.push({ url: String(url), auth: new Headers(init?.headers).get("authorization"), body });
     return new Response(JSON.stringify(body.map((c) => ({ result: run(c) }))), { status: 200 });
   };

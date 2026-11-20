@@ -42,14 +42,21 @@ export function createOffenderTracker(redis: Redis): OffenderTracker {
 /** Spend across all visitors for the current UTC day (A6). */
 export function createBudgetStore(redis: Redis, clock: Clock): BudgetStore {
   const key = () => `${PREFIX}:spend:${new Date(clock.now()).toISOString().slice(0, 10)}`;
+  const add = async (k: string, amount: number) => {
+    const [total] = await redis.pipeline([["INCRBYFLOAT", k, amount], ["EXPIRE", k, BUDGET_KEY_TTL_SECONDS]]);
+    return toNumber(total);
+  };
   return {
-    async spentTodayUsd() {
-      const [value] = await redis.pipeline([["GET", key()]]);
-      return toNumber(value);
-    },
-    async addSpendUsd(amount) {
+    // INCRBYFLOAT is atomic, so each request sees every reservation made before it.
+    async reserve(amountUsd, limitUsd) {
       const k = key();
-      await redis.pipeline([["INCRBYFLOAT", k, amount], ["EXPIRE", k, BUDGET_KEY_TTL_SECONDS]]);
+      const total = await add(k, amountUsd);
+      if (total - amountUsd < limitUsd) return true;
+      await add(k, -amountUsd);
+      return false;
+    },
+    async addSpendUsd(amountUsd) {
+      await add(key(), amountUsd);
     },
   };
 }
