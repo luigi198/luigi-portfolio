@@ -91,7 +91,10 @@ responses.
 - `POST /api/twin`: validates the JSON body, calls the service, streams text back, returns generic errors only. Structured JSON logs without message content.
 - Tests: route-level tests with the boundary mocks (bad body → 400, limited → 429 with safe text, success → streamed text).
 
-### Phase 5: Chat UI (S6, P3, A4, C4, V5)
+### Phase 5: Chat UI (S6, P3, A4, C4, V5) ✅
+- Done: `src/components/twin/` (`TwinChat`, `ChatComposer`, `ChatFailureNote`, `useTwinChat`, pure `chat-state.ts` + `stream.ts`), `src/twin/localize.ts`, chat copy in both dictionaries (usted). Area panels keep their free instant answer and link to `#twin`.
+- Tests: `tests/twin-chat-client.test.ts` (stream parsing incl. split multi-byte characters, reducer, history, countdown), `tests/twin-chat-view.test.tsx` (labels, notice, starters, 500-char box, every failure message in EN/ES, booking hand-off).
+- Browser check (dev server, Chrome): instant starter; real request with no keys → "chat isn't available" card; streamed answer via an in-page fake of the NDJSON stream (starters disabled mid-stream, counter 10 → 9); Spanish + light theme; 388 px wide with no horizontal scroll.
 - Replace `TwinPreview` with a chat panel: AI label and short notice, starter chips (instant prewritten answers), input with live character count, streaming reply, turn counter, hand-off card with the Calendly link at the cap or on any limit.
 - Bot-check widget per D3. Bilingual copy in the dictionaries.
 - Verified in the browser at desktop and phone widths, in both themes.

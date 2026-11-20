@@ -28,7 +28,7 @@
     "can": "What I can do for you",
     "ask": "Ask the AI version of me about {area}",
     "hide": "Hide the conversation",
-    "twinNote": "Preview. The live version will answer from my real work history.",
+    "twinNote": "My own answer, written ahead of time.",
     "back": "Back to {area}",
     "touched": "Areas this project used",
     "visit": "Visit the site",
@@ -44,7 +44,28 @@
       "We spend the first week on the real problem, with the people who have it.",
       "I ship a working first version you can use and react to.",
       "I hand it over with tests and docs your team can own."
-    ]
+    ],
+    "moreInChat": "Ask the AI version of me anything else"
+  },
+  "twin": {
+    "title": "Ask the AI version of me",
+    "label": "AI version of Luis",
+    "notice": "This is an AI that answers from my real work history. It isn't me and it can get things wrong, so please don't share personal information. For anything important, book a call.",
+    "starters": "Try asking",
+    "placeholder": "Ask about my work, my projects or how we could work together",
+    "send": "Send",
+    "you": "You",
+    "writing": "Writing…",
+    "left": "{count} questions left",
+    "failures": {
+      "blocked": "I couldn't verify this browser, so the chat is off for now.",
+      "limited": "That's a lot of questions in a short time. Let's keep talking on a call.",
+      "conversation-cap": "That's all the questions this chat can take. The rest is better on a call with me.",
+      "over-budget": "The chat is closed for today. You can still book a call with me.",
+      "unavailable": "The chat isn't available right now. You can still book a call with me.",
+      "invalid": "That message is too long. Please keep it under {max} characters.",
+      "failed": "Something went wrong with that answer. Please try again, or book a call."
+    }
   },
   "contact": {
     "title": "Have a problem that crosses more than one layer?",

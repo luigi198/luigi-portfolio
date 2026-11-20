@@ -28,7 +28,7 @@
     "can": "Lo que puedo hacer por usted",
     "ask": "Pregúntele a mi versión IA sobre {area}",
     "hide": "Ocultar la conversación",
-    "twinNote": "Vista previa. La versión real responderá a partir de mi historial de trabajo.",
+    "twinNote": "Mi propia respuesta, escrita de antemano.",
     "back": "Volver a {area}",
     "touched": "Áreas que usó este proyecto",
     "visit": "Visitar el sitio",
@@ -44,7 +44,28 @@
       "Pasamos la primera semana en el problema real, con las personas que lo tienen.",
       "Entrego una primera versión que funciona y que usted puede usar y criticar.",
       "La entrego con pruebas y documentación que su equipo puede mantener."
-    ]
+    ],
+    "moreInChat": "Hágale cualquier otra pregunta a mi versión con IA"
+  },
+  "twin": {
+    "title": "Pregúntele a mi versión con IA",
+    "label": "Versión de Luis con IA",
+    "notice": "Esta es una IA que responde con base en mi historial de trabajo real. No soy yo y puede equivocarse, así que por favor no comparta datos personales. Para algo importante, agende una llamada.",
+    "starters": "Puede preguntar",
+    "placeholder": "Pregunte sobre mi trabajo, mis proyectos o cómo podríamos trabajar juntos",
+    "send": "Enviar",
+    "you": "Usted",
+    "writing": "Escribiendo…",
+    "left": "Le quedan {count} preguntas",
+    "failures": {
+      "blocked": "No pude verificar este navegador, así que el chat no está disponible por ahora.",
+      "limited": "Son muchas preguntas en poco tiempo. Sigamos la conversación en una llamada.",
+      "conversation-cap": "Este chat llegó a su límite de preguntas. Lo demás es mejor conversarlo en una llamada conmigo.",
+      "over-budget": "El chat cerró por hoy. Igual puede agendar una llamada conmigo.",
+      "unavailable": "El chat no está disponible en este momento. Igual puede agendar una llamada conmigo.",
+      "invalid": "Ese mensaje es muy largo. Por favor use menos de {max} caracteres.",
+      "failed": "Algo salió mal con esa respuesta. Intente de nuevo o agende una llamada."
+    }
   },
   "contact": {
     "title": "¿Tiene un problema que atraviesa más de una capa?",

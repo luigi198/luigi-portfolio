@@ -2,6 +2,7 @@ import { StackExplorer } from "@/components/explorer/StackExplorer";
 import { Contact } from "@/components/site/Contact";
 import { Hero } from "@/components/site/Hero";
 import { SiteHeader } from "@/components/site/SiteHeader";
+import { TwinChat } from "@/components/twin/TwinChat";
 import { AREAS } from "@/content/explorer/areas";
 import { NEEDS } from "@/content/explorer/needs";
 import { PROJECTS } from "@/content/explorer/projects";
@@ -10,6 +11,7 @@ import { orderByBreadth } from "@/explorer/model";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { PERSON_NAME } from "@/seo/person-jsonld";
+import { localizeStarters } from "@/twin/localize";
 
 interface Props {
   locale: Locale;
@@ -27,6 +29,7 @@ export function HomeView({ locale, dictionary }: Props) {
       <SiteHeader name={PERSON_NAME} locale={locale} copy={dictionary.site} />
       <Hero copy={dictionary.home} />
       <StackExplorer areas={areas} projects={projects} needs={needs} copy={dictionary.explorer} />
+      <TwinChat locale={locale} copy={dictionary.twin} book={dictionary.site.book} starters={localizeStarters(locale)} />
       <Contact copy={dictionary.contact} book={dictionary.site.book} />
     </main>
   );

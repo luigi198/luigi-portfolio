@@ -60,6 +60,7 @@ export function AreaPanel({ area, projects, copy, onProject }: Props) {
         askLabel={fillArea(copy.ask, area.topic)}
         hideLabel={copy.hide}
         note={copy.twinNote}
+        chatLabel={copy.moreInChat}
       />
     </>
   );
