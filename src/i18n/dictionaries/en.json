@@ -4,10 +4,52 @@
     "description": "Luis Cordoba is a software developer and forward deployed engineer who ships production software alongside customers. Portfolio, experience and resume.",
     "jobTitle": "Software Developer & Forward Deployed Engineer"
   },
+  "site": {
+    "role": "Forward deployed engineer",
+    "languageGroup": "Language",
+    "switchLanguage": "Leer en español",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode",
+    "book": "Book a call",
+    "sample": "Preview. Projects and figures are samples that will be replaced with real work."
+  },
   "home": {
-    "eyebrow": "Software Developer · Forward Deployed Engineer",
-    "headline": "I build software where it meets the real world.",
-    "intro": "Portfolio coming soon — experience, case studies and resume in English and Spanish.",
-    "switchLanguage": "Leer en español"
+    "headline": "Most real problems cut through more than one layer.",
+    "intro": "I've worked in all five, from the app in someone's hand down to the database under it. Pick an area, a project, or the problem you have.",
+    "photo": "Photo coming soon"
+  },
+  "explorer": {
+    "need": "I need",
+    "mapLabel": "Areas of expertise and the projects that used them",
+    "hint": "Each column is a project. The dots show which areas it used.",
+    "projects": "Projects",
+    "tools": "Tools",
+    "know": "What I know",
+    "done": "What I've done",
+    "can": "What I can do for you",
+    "ask": "Ask the AI version of me about {area}",
+    "hide": "Hide the conversation",
+    "twinNote": "Preview. The live version will answer from my real work history.",
+    "back": "Back to {area}",
+    "touched": "Areas this project used",
+    "shot": "Screenshot or short clip of this project",
+    "projectBook": "Book a call about a project like this",
+    "allName": "All five layers",
+    "allTopic": "all five layers",
+    "allAreas": "Areas",
+    "allProjects": "Across 3+ areas",
+    "allPitch": "As a forward deployed engineer I work inside your team and take a problem from the first conversation to production, whichever layers it ends up touching.",
+    "how": "How it works",
+    "endToEnd": "End-to-end projects",
+    "steps": [
+      "We spend the first week on the real problem, with the people who have it.",
+      "I ship a working first version you can use and react to.",
+      "I hand it over with tests and docs your team can own."
+    ]
+  },
+  "contact": {
+    "title": "Have a problem that crosses more than one layer?",
+    "body": "Tell me what's going on in a 30-minute call. You'll leave with a clear next step, whether or not we work together.",
+    "note": "Booking link coming soon"
   }
 }

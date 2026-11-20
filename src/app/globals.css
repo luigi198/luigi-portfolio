@@ -1,26 +1,97 @@
 @import "tailwindcss";
 
+/*
+ * Dark-first palette. Light applies only when chosen with the toggle
+ * (data-theme="light"), never from the OS setting: dark is the brand.
+ * Area colors are named --area-<AreaId> so components derive them from the id.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground: #0a0b0d;
+  --surface: #14171a;
+  --raised: #1c2024;
+  --ink: #e6e8e9;
+  --bright: #ffffff;
+  --muted: #969fa3;
+  --rule: #262b30;
+  --cta: #f4f5f5;
+  --cta-ink: #0a0b0d;
+  --area-mobile: #ff6f9f;
+  --area-full-stack: #6ea8ff;
+  --area-agentic-ai: #ffb547;
+  --area-data: #3fd9a6;
+  --area-databases: #b49cff;
+  --tint: 14%;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --ground: #f4f5f6;
+  --surface: #ffffff;
+  --raised: #eceef0;
+  --ink: #1a1e22;
+  --bright: #0a0b0d;
+  --muted: #5c666b;
+  --rule: #d9dde0;
+  --cta: #0a0b0d;
+  --cta-ink: #ffffff;
+  --area-mobile: #c23a6c;
+  --area-full-stack: #2a62cf;
+  --area-agentic-ai: #a8680a;
+  --area-data: #12795d;
+  --area-databases: #5e47a8;
+  --tint: 12%;
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-bright: var(--bright);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-cta: var(--cta);
+  --color-cta-ink: var(--cta-ink);
+  --font-sans: var(--font-inter);
+  --animate-arrive: arrive 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes arrive {
+    from {
+      opacity: 0;
+      transform: translateY(0.18em);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Layer map: a project's dots glow in their area color when it is hovered, focused or open. */
+.map-column:hover .map-dot,
+.map-column:focus-visible .map-dot,
+.map-column[aria-pressed="true"] .map-dot {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
