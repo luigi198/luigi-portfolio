@@ -11,6 +11,8 @@ const COLUMN_CENTER = 0.5;
 const DOT_RING = "0 0 0 3px var(--ground)";
 const SELECTED_DOT_RING = `${DOT_RING}, 0 0 0 5px var(--ink)`;
 const DIMMED = "opacity-30";
+/** A dimmed dot comes back while its column is hovered or focused, so the project can be previewed. */
+const DIMMED_DOT = `${DIMMED} group-hover:opacity-100 group-focus-visible:opacity-100`;
 const bands = (n: number) => `${n * BAND_REM}rem`;
 
 interface Props {
@@ -31,6 +33,8 @@ export function LayerMap({ areas, projects, selection, projectId, label, onArea,
   const showAll = selection === ALL_AREAS;
   const isOn = (id: AreaId) => showAll || id === selection;
   const isDim = (p: Project) => !isRelevant(p, selection) && p.id !== projectId;
+  // A dot is lit when its own layer is selected, or when its project is open.
+  const isLit = (p: Project, id: AreaId) => p.id === projectId || isOn(id);
 
   return (
     <div className="-mx-1 overflow-x-auto p-1">
@@ -78,17 +82,19 @@ export function LayerMap({ areas, projects, selection, projectId, label, onArea,
                 onMouseLeave={() => onHover(null)}
                 onFocus={() => onHover(p.id)}
                 onBlur={() => onHover(null)}
-                className={`map-column group absolute w-8 -translate-x-1/2 transition-opacity ${isDim(p) ? DIMMED : ""}`}
+                className="map-column group absolute w-8 -translate-x-1/2"
                 style={{ left: `${((k + COLUMN_CENTER) / projects.length) * 100}%`, top: bands(top), height: bands(Math.max(...rows) - top + 1) }}
               >
                 <span
-                  className={`absolute left-1/2 -translate-x-1/2 transition-all ${selected ? "w-[3px] bg-ink" : "w-0.5 bg-muted opacity-50 group-hover:opacity-100 group-focus-visible:opacity-100"}`}
+                  className={`absolute left-1/2 -translate-x-1/2 transition-all ${selected ? "w-[3px] bg-ink" : `w-0.5 bg-muted ${isDim(p) ? "opacity-15" : "opacity-50"} group-hover:opacity-100 group-focus-visible:opacity-100`}`}
                   style={{ top: bands(BAND_CENTER), bottom: bands(BAND_CENTER) }}
                 />
                 {p.areas.map((id, i) => (
                   <span
                     key={id}
-                    className={`map-dot absolute left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all ${selected ? "size-[1.1rem]" : "size-3.5"}`}
+                    data-dot={`${p.id}:${id}`}
+                    data-lit={isLit(p, id)}
+                    className={`map-dot absolute left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all ${selected ? "size-[1.1rem]" : "size-3.5"} ${isLit(p, id) ? "" : DIMMED_DOT}`}
                     style={{
                       top: bands(rows[i] - top + BAND_CENTER),
                       color: areaColor(id),
