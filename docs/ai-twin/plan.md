@@ -73,7 +73,11 @@ responses.
 - `policy.ts`: message length cap, turn cap, history validation (roles alternate, only text, lengths re-checked). Tests: happy path plus each failure path.
 - `service.ts` over the `ports.ts` interfaces: enforces the request order, maps outcomes to visitor-safe results (blocked, limited, over budget, refused, answered). Tests use small in-test fakes of the *ports* (process-boundary stand-ins), not mocks of our own modules.
 
-### Phase 3: Infrastructure adapters (S3, S8, S11, A1, A2, A5, A8, C1, C3)
+### Phase 3: Infrastructure adapters (S3, S8, S11, A1, A2, A5, A8, C1, C3) ✅
+- Done: `infra/anthropic.ts` (`@anthropic-ai/sdk` 1.6.0), `infra/bot-check.ts` + `src/instrumentation-client.ts` (`botid` 1.5.12, Basic mode, free on all plans), `infra/redis.ts` + `infra/stores.ts`, `infra/config.ts`, `infra/logger.ts`, `infra/deps.ts`, `screen-prompt.ts`.
+- **Changed from the plan:** no `@upstash/*` packages. The twin needs four Redis commands, so `redis.ts` calls Upstash's documented REST pipeline with `fetch`, and the rate limits are fixed-window counters (10 per 10 minutes, 30 per UTC day). One fewer dependency, and the tests mock the real wire format.
+- Prompt size: about 28,500 characters (~7,000 tokens), well above the 512-token cache minimum.
+- Env vars (Vercel → Settings → Environment Variables): `ANTHROPIC_API_KEY`, `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or the `KV_REST_API_*` names the integration may inject), `VISITOR_HASH_SALT` (any long random string), optional `TWIN_DAILY_BUDGET_USD` (default 5).
 - `anthropic.ts`: main call with `cache_control` on the system prompt, effort `low`, `max_tokens` cap, streaming; checks `stop_reason` (refusal → redirect line). Screen call on Haiku 5.5 with a structured-output verdict; a refusal counts as blocked.
 - `rate-limit.ts`, `bot-check.ts`, `config.ts` (env read on first use, never at import).
 - Tests: mocked HTTP responses copied from the providers' documented shapes, with happy and failure paths (timeouts, 429, refusal, store down → fail closed).
