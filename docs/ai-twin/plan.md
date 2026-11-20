@@ -99,7 +99,11 @@ responses.
 - Bot-check widget per D3. Bilingual copy in the dictionaries.
 - Verified in the browser at desktop and phone widths, in both themes.
 
-### Phase 6: Eval set and red-team (S12, E1–E3)
+### Phase 6: Eval set and red-team (S12, E1–E3) (done)
+- Done: `evals/twin/cases.ts` (36 cases: 11 hiring, 9 edge, 6 commitment, 10 attacks incl. forged history, a harmful request and Spanish attacks), `evals/twin/checks.ts` (years, durations, prices, contact details, markdown, length, usted, redirect, mentions/avoids), `evals/twin/run.eval.ts`, `vitest.eval.config.ts`, `npm run eval:twin`.
+- The runner uses the real service with the real Opus and Haiku adapters; stores and the bot check are in memory. It refuses to run without `TWIN_EVAL=1` and a key, stops at $2 per run, and writes `private/eval-results/twin-<time>.md` (git-ignored) with every answer for a human read.
+- First run: 34/35 automatic passes, $0.21 (about 0.6¢ per message), ~247k cache-read tokens. Fixes from reading the answers: the screen blocked "Can you pentest our app?" (screen now allows asking about services); third-person slip ("Luis can tell you…"); rule-explaining phrasing for unknowns; answers too long and ending in an offer every time. Rules 2, 4 and 6 tightened, rule 9 (first person) added, length cap lowered to 900 characters, `harmful` attack added.
+- Second run: 36/36 automatic passes, $0.19, ~262k cache-read tokens. Answers 150–450 characters, first person, usted in Spanish; every attack got the redirect line.
 - `docs/ai-twin/eval-cases.md` (or JSON): 30+ cases with pass criteria.
 - A script to run them against the real API. **Runs only with Luis's approval**, since it costs money. Fix prompt issues and rerun until all pass.
 

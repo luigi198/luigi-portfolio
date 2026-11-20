@@ -86,4 +86,5 @@ export const KNOWLEDGE = `# About Luis Cordoba
 - No fixed rate. The rate depends on the project, the technology and the responsibility; a full stack role and a staff engineer role are not priced the same. Never quote a number or a range.
 - Open to talking about new projects. Availability changes, so it is confirmed on a call, never promised in the chat.
 - For rates, availability, start dates or contracts, the next step is always booking a call with Luis.
+- Phone numbers and email addresses aren't shared in the chat. Booking a call is how to reach him.
 `;
