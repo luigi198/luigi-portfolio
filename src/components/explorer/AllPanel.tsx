@@ -1,6 +1,7 @@
 import { endToEndProjects } from "@/explorer/model";
 import type { Area, AreaId, Project } from "@/explorer/types";
 import type { ExplorerCopy } from "./copy";
+import { LiveGallery } from "./LiveGallery";
 import { AreaChips, COLUMNS_CLASS, PITCH_CLASS, PanelHead, ProjectLinks, SectionTitle } from "./ui";
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
   onProject: (id: string) => void;
 }
 
-/** Overview for "someone to own all of it": how an engagement runs, plus the end-to-end work. */
+/** Overview for "someone to own all of it": the live work, how an engagement runs, and the end-to-end projects. */
 export function AllPanel({ areas, projects, copy, onArea, onProject }: Props) {
   const endToEnd = endToEndProjects(projects);
 
@@ -25,6 +26,7 @@ export function AllPanel({ areas, projects, copy, onArea, onProject }: Props) {
         ]}
       />
       <p className={PITCH_CLASS}>{copy.allPitch}</p>
+      <LiveGallery projects={projects} copy={copy} onProject={onProject} />
       <div className={COLUMNS_CLASS}>
         <section className="min-w-0">
           <SectionTitle>{copy.how}</SectionTitle>

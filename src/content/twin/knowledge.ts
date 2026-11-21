@@ -32,6 +32,12 @@ export const KNOWLEDGE = `# About Luis Cordoba
 - Stack: Next.js, React, Tailwind, TypeScript, PostgreSQL, pgvector, Python, AWS (S3, SNS, SQS, Lambda), Terraform.
 - Fully automated with solid logging and monitoring, so it needs very little daily attention. The project he is proudest of.
 
+### Flow One (his own product)
+- Software for independent workers and small businesses in Costa Rica, live at flow1cr.com. Luis is the only developer.
+- Issues the digital invoices (factura electrónica) that Costa Rica's tax authority requires, and keeps track of expenses and taxes.
+- Stack: Next.js, PostgreSQL, AWS (Lambda, SNS, SQS, S3), Firebase Authentication, Tilopay for payments, Resend for email.
+- In progress: publishing posts to every social network, one unified inbox for WhatsApp and other chats, and AI to keep track of leads.
+
 ### Psicofit (in progress)
 - Portal where psychologists get a public profile and a Calendly-style booking system with instant payments through Tilopay. Next.js and MongoDB, built for search (SEO) from the start.
 - A Flutter app in development teaches psychology topics in short lessons, in the style of Duolingo.

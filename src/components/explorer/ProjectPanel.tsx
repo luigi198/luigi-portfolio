@@ -1,7 +1,8 @@
 import { areasUsed } from "@/explorer/model";
 import type { Area, AreaId, Project } from "@/explorer/types";
 import type { ExplorerCopy } from "./copy";
-import { fillArea } from "./format";
+import { fillArea, siteHost } from "./format";
+import { SitePreview } from "./SitePreview";
 import { AreaChips, CtaLink } from "./ui";
 
 interface Props {
@@ -33,21 +34,22 @@ export function ProjectPanel({ project, areas, backTo, copy, onArea, onBack }: P
         {project.metric}
       </p>
       <p className="mb-8 max-w-[40rem] text-[1.0625rem]">{project.story}</p>
-      {project.links.length > 0 && (
-        <p className="mb-8 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="text-muted">{copy.visit}:</span>
-          {project.links.map((href) => (
-            <a
-              key={href}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold underline decoration-rule decoration-2 underline-offset-[3px] hover:decoration-ink"
-            >
-              {new URL(href).hostname.replace(/^www\./, "")}
-            </a>
-          ))}
-        </p>
+      {project.sites.length > 0 && (
+        <section className="mb-10">
+          <h3 className="mb-3 text-muted">{copy.visit}</h3>
+          <ul className="grid gap-6 sm:grid-cols-2">
+            {project.sites.map((site) => (
+              <li key={site.href}>
+                <a href={site.href} target="_blank" rel="noopener noreferrer" className="group grid gap-2.5">
+                  <SitePreview site={site} altTemplate={copy.preview} sizes="(min-width: 640px) 30rem, 100vw" />
+                  <span className="font-semibold underline decoration-rule decoration-2 underline-offset-[3px] group-hover:decoration-ink">
+                    {siteHost(site.href)}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
       <h3 className="mb-3 max-w-[40rem] border-b border-rule pb-2 font-semibold">{copy.touched}</h3>
       <AreaChips areas={areas.filter((a) => used.has(a.id))} onArea={onArea} />

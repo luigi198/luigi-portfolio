@@ -31,8 +31,16 @@ export interface ProjectContent {
   client: Localized<string>;
   metric: Localized<string>;
   story: Localized<string>;
-  /** Public https URLs of the live product or sites, if any. */
-  links?: readonly string[];
+  /** The live product or sites, if any. */
+  sites?: readonly ProjectSite[];
+}
+
+/** A live site and a screenshot of it, served from /public. */
+export interface ProjectSite {
+  /** Public https URL. */
+  href: string;
+  /** Path under /public, e.g. "/images/sites/propiedatos.jpg". 1280×800. */
+  preview: string;
 }
 
 export interface NeedContent {
@@ -63,7 +71,7 @@ export interface Project {
   client: string;
   metric: string;
   story: string;
-  links: readonly string[];
+  sites: readonly ProjectSite[];
 }
 
 export interface Need {

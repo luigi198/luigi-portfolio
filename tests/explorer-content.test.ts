@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { AREAS } from "@/content/explorer/areas";
 import { NEEDS } from "@/content/explorer/needs";
@@ -36,7 +38,16 @@ describe("explorer content", () => {
   });
 
   it("only links to https sites", () => {
-    for (const p of PROJECTS) for (const link of p.links ?? []) expect(new URL(link).protocol, p.id).toBe("https:");
+    for (const p of PROJECTS) for (const site of p.sites ?? []) expect(new URL(site.href).protocol, p.id).toBe("https:");
+  });
+
+  it("gives every live site a preview image that exists in /public", () => {
+    for (const p of PROJECTS) {
+      for (const site of p.sites ?? []) {
+        expect(site.preview, site.href).toMatch(/^\/images\/sites\/[a-z0-9-]+\.jpg$/);
+        expect(existsSync(join(process.cwd(), "public", site.preview)), site.preview).toBe(true);
+      }
+    }
   });
 
   it("never mentions a year in any project or area text", () => {
@@ -76,7 +87,7 @@ describe("localize", () => {
       client: project.client.en,
       metric: project.metric.en,
       story: project.story.en,
-      links: project.links ?? [],
+      sites: project.sites ?? [],
     });
   });
 

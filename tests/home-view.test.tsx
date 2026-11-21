@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { HomeView } from "@/components/home/HomeView";
+import { AllPanel } from "@/components/explorer/AllPanel";
 import { AreaPanel } from "@/components/explorer/AreaPanel";
 import { ProjectPanel } from "@/components/explorer/ProjectPanel";
 import { AREAS } from "@/content/explorer/areas";
@@ -43,6 +44,13 @@ describe("HomeView", () => {
       expect(hero).toBeGreaterThan(-1);
       expect(chat).toBeGreaterThan(hero);
       expect(explorer).toBeGreaterThan(chat);
+    }
+  });
+
+  it("finishes the hero headline with its accent, inside the same heading", () => {
+    for (const [html, copy] of [[enHtml, en], [esHtml, es]] as const) {
+      const h1 = /<h1[^>]*>([\s\S]*?)<\/h1>/.exec(html)?.[1] ?? "";
+      expect(textOf(h1).trim()).toBe(`${copy.home.headline} ${copy.home.headlineAccent}`);
     }
   });
 
@@ -140,10 +148,25 @@ describe("ProjectPanel", () => {
     expect(text).toContain(project.story);
   });
 
-  it("links to each live site in a new tab", () => {
-    const sites = render("small-business").html;
-    for (const host of ["lactanne.com", "solarisbronceado.com", "hanslistenia.com"]) {
-      expect(sites).toMatch(new RegExp(`<a[^>]*href="https://${host.replace(".", "\\.")}"[^>]*target="_blank"[^>]*>${host.replace(".", "\\.")}</a>`));
+  /** Each <a> to a live site (not the booking page): [href, attributes, inner HTML]. */
+  const siteLinks = (html: string) =>
+    [...html.matchAll(/<a([^>]*)>([\s\S]*?)<\/a>/g)]
+      .map(([, attrs, inner]) => [/href="([^"]+)"/.exec(attrs)![1], attrs, inner] as const)
+      .filter(([href]) => href !== BOOKING_URL);
+
+  it("links to each live site in a new tab, labelled with its host", () => {
+    const links = siteLinks(render("small-business").html);
+    expect(links.map(([href]) => href)).toEqual(["https://lactanne.com", "https://solarisbronceado.com", "https://hanslistenia.com"]);
+    for (const [href, attrs, inner] of links) {
+      expect(attrs, href).toContain('target="_blank"');
+      expect(textOf(inner), href).toContain(new URL(href).hostname);
+    }
+  });
+
+  it("shows a preview of each live site inside its link", () => {
+    for (const [href, , inner] of siteLinks(render("small-business").html)) {
+      const alt = en.explorer.preview.replace("{site}", new URL(href).hostname);
+      expect(inner, href).toMatch(new RegExp(`<img[^>]*alt="${alt}"`));
     }
   });
 
@@ -158,5 +181,30 @@ describe("ProjectPanel", () => {
 
   it("ends with a link to book a call", () => {
     expect(html).toMatch(bookingLink("Book a call about a project like this"));
+  });
+});
+
+describe("AllPanel", () => {
+  const areas = AREAS.map((a) => localizeArea(a, "en"));
+  const projects = PROJECTS.map((p) => localizeProject(p, "en"));
+  const html = renderToStaticMarkup(
+    <AllPanel areas={areas} projects={projects} copy={en.explorer} onArea={noop} onProject={noop} />,
+  );
+  const withSites = projects.filter((p) => p.sites.length > 0);
+
+  it("opens with a gallery of the live sites", () => {
+    expect(withSites.length).toBeGreaterThan(0);
+    expect(textOf(html)).toContain(en.explorer.live);
+    const gallery = html.indexOf(en.explorer.live);
+    expect(gallery).toBeLessThan(html.indexOf(en.explorer.how));
+  });
+
+  it("shows every live site once, as a button that opens its project", () => {
+    const buttons = [...html.matchAll(/<button[^>]*data-project="([^"]+)"[^>]*>([\s\S]*?)<\/button>/g)];
+    const expected = withSites.flatMap((p) =>
+      p.sites.map((s) => [p.id, en.explorer.preview.replace("{site}", new URL(s.href).hostname.replace(/^www\./, ""))]),
+    );
+    const shown = buttons.map(([, id, inner]) => [id, /<img[^>]*alt="([^"]+)"/.exec(inner)?.[1]]);
+    expect(shown).toEqual(expected);
   });
 });

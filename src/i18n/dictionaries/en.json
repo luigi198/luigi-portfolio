@@ -13,8 +13,9 @@
     "book": "Book a call"
   },
   "home": {
-    "headline": "Most real problems cut through more than one layer.",
-    "intro": "In 13 years of building software, I've worked in all five, from the app in someone's hand down to the database under it. Pick an area, a project, or the problem you have.",
+    "headline": "One engineer for the whole solution,",
+    "headlineAccent": "from the app to the database.",
+    "intro": "I've spent 13 years building software end to end. I join your team, learn the problem from the people who have it, and deliver it working in production, with no handoffs along the way. Pick an area, a project or the problem you have.",
     "photoAlt": "Luis Cordoba",
     "ask": "Ask the AI version of me"
   },
@@ -33,6 +34,7 @@
     "back": "Back to {area}",
     "touched": "Areas this project used",
     "visit": "Visit the site",
+    "preview": "Screenshot of {site}",
     "projectBook": "Book a call about a project like this",
     "allName": "All five layers",
     "allTopic": "all five layers",
@@ -41,6 +43,7 @@
     "allPitch": "As a forward deployed engineer I work inside your team and take a problem from the first conversation to production, whichever layers it ends up touching.",
     "how": "How it works",
     "endToEnd": "End-to-end projects",
+    "live": "Live in production",
     "steps": [
       "We spend the first week on the real problem, with the people who have it.",
       "I ship a working first version you can use and react to.",
@@ -69,7 +72,7 @@
     }
   },
   "contact": {
-    "title": "Have a problem that crosses more than one layer?",
-    "body": "Tell me what's going on in a 30-minute call. You'll leave with a clear next step, whether or not we work together."
+    "title": "Let's talk about your project.",
+    "body": "Tell me what you need in a 30-minute call, and leave with a clear plan to solve it."
   }
 }

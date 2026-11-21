@@ -13,8 +13,9 @@
     "book": "Agende una llamada"
   },
   "home": {
-    "headline": "Casi todo problema real atraviesa más de una capa.",
-    "intro": "En 13 años construyendo software he trabajado en las cinco, desde la app en la mano de alguien hasta la base de datos que la sostiene. Elija un área, un proyecto o el problema que tiene.",
+    "headline": "Un ingeniero para toda la solución,",
+    "headlineAccent": "de la app a la base de datos.",
+    "intro": "Llevo 13 años construyendo software de punta a punta. Me uno a su equipo, entiendo el problema con las personas que lo viven y lo entrego funcionando en producción, sin pasarlo de mano en mano. Elija un área, un proyecto o el problema que tiene.",
     "photoAlt": "Luis Cordoba",
     "ask": "Pregúntele a mi versión con IA"
   },
@@ -33,6 +34,7 @@
     "back": "Volver a {area}",
     "touched": "Áreas que usó este proyecto",
     "visit": "Visitar el sitio",
+    "preview": "Captura de {site}",
     "projectBook": "Agende una llamada sobre un proyecto así",
     "allName": "Las cinco capas",
     "allTopic": "las cinco capas",
@@ -41,6 +43,7 @@
     "allPitch": "Como forward deployed engineer trabajo dentro de su equipo y llevo un problema desde la primera conversación hasta producción, toque las capas que toque.",
     "how": "Cómo funciona",
     "endToEnd": "Proyectos de punta a punta",
+    "live": "En producción",
     "steps": [
       "Pasamos la primera semana en el problema real, con las personas que lo tienen.",
       "Entrego una primera versión que funciona y que usted puede usar y criticar.",
@@ -69,7 +72,7 @@
     }
   },
   "contact": {
-    "title": "¿Tiene un problema que atraviesa más de una capa?",
-    "body": "Cuénteme qué pasa en una llamada de 30 minutos. Se va con un siguiente paso claro, trabajemos juntos o no."
+    "title": "Hablemos de su proyecto.",
+    "body": "Cuénteme qué necesita en una llamada de 30 minutos y salga con un plan claro para resolverlo."
   }
 }

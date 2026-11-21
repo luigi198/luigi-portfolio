@@ -17,7 +17,22 @@ export const PROJECTS: readonly ProjectContent[] = [
       en: "A real-estate data platform for Costa Rica where I'm the only engineer. Python scrapers collect land listings every day, and the data is cleaned, validated and tracked over time, including price changes and how long each listing has been up. Each property gets a report that grades it against local prices and adds crime, climate and natural-disaster data, written up by an LLM. Visitors search in plain language, powered by vector search on pgvector.",
       es: "Una plataforma de datos inmobiliarios para Costa Rica en la que soy el único ingeniero. Scrapers en Python recogen lotes cada día, y los datos se limpian, se validan y se siguen en el tiempo, incluidos los cambios de precio y cuánto lleva publicado cada lote. Cada propiedad tiene un reporte que la califica frente a los precios de la zona y suma datos de crimen, clima y desastres naturales, redactado por un LLM. La búsqueda funciona en lenguaje natural, con búsqueda vectorial en pgvector.",
     },
-    links: ["https://www.propiedatos.com"],
+    sites: [{ href: "https://www.propiedatos.com", preview: "/images/sites/propiedatos.jpg" }],
+  },
+  {
+    id: "flow-one",
+    areas: ["full-stack", "databases"],
+    title: { en: "Flow One", es: "Flow One" },
+    client: { en: "My own product", es: "Producto propio" },
+    metric: {
+      en: "Costa Rican digital invoicing, expenses and taxes in one place",
+      es: "Factura electrónica, gastos e impuestos de Costa Rica en un solo lugar",
+    },
+    story: {
+      en: "Software for independent workers and small businesses in Costa Rica, where I'm the only developer. It issues the digital invoices the tax authority requires and keeps track of expenses and taxes. Built with Next.js and PostgreSQL, with background work on AWS Lambda, SNS, SQS and S3, sign-in through Firebase Authentication, payments through Tilopay and email through Resend. Coming next: publishing posts to every social network, one inbox for WhatsApp and other chats, and AI to keep track of leads.",
+      es: "Software para trabajadores independientes y pequeños negocios en Costa Rica, en el que soy el único desarrollador. Emite las facturas electrónicas que exige Hacienda y lleva el control de gastos e impuestos. Hecho con Next.js y PostgreSQL, con procesos en segundo plano en AWS Lambda, SNS, SQS y S3, inicio de sesión con Firebase Authentication, pagos por Tilopay y correos por Resend. Lo que viene: publicar en todas las redes sociales, una sola bandeja para WhatsApp y otros chats, e IA para dar seguimiento a los clientes potenciales.",
+    },
+    sites: [{ href: "https://www.flow1cr.com", preview: "/images/sites/flow1cr.jpg" }],
   },
   {
     id: "psicofit",
@@ -116,6 +131,10 @@ export const PROJECTS: readonly ProjectContent[] = [
       en: "Lactanne and Solaris, a tanning salon, have Next.js sites built to rank in search, each with its own blog. Hanslistenia, a calisthenics center, has an online shop.",
       es: "Lactanne y Solaris, un salón de bronceado, tienen sitios en Next.js hechos para posicionar en buscadores, cada uno con su blog. Hanslistenia, un centro de calistenia, tiene una tienda en línea.",
     },
-    links: ["https://lactanne.com", "https://solarisbronceado.com", "https://hanslistenia.com"],
+    sites: [
+      { href: "https://lactanne.com", preview: "/images/sites/lactanne.jpg" },
+      { href: "https://solarisbronceado.com", preview: "/images/sites/solaris.jpg" },
+      { href: "https://hanslistenia.com", preview: "/images/sites/hanslistenia.jpg" },
+    ],
   },
 ];
